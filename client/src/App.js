@@ -715,18 +715,21 @@ function App() {
     today = dd + "/" + mm + "/" + yyyy;
     console.log(today);
     if (name !== "" && program !== "" && holder_key !== 0) {
-      await certificate.methods
+      const ok = await certificate.methods
         .mintCertificate(name, today, program, holder_key)
         .send({ from: account })
         .on("transactionHash", function (hash) {
           console.log("University Approved Successfully");
         });
+        console.log("ok ki value next");
+        console.log(ok);
       const result = await certificate.methods
         .getOwnerOfCertificate(1)
         .send({ from: account })
         .on("transactionHash", function (hash) {
           console.log("Owner of the NFT is");
         });
+        console.log("yeh wala dusra hai ")
       console.log(result);
     }
   };
