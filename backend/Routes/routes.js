@@ -29,13 +29,16 @@ router.get("/account_exists", async (req, res) => {
   await User.findOne({ public_key: req.body.public_key })
     .then((document) => {
       if (document) {
+        console.log("Entered");
         res.status(200).json({ message: "Document found" });
-        console.log(document.public_key == req.body.public_key)
+        console.log(document.public_key == req.body.public_key);
       } else {
         res.status(404).json({ message: "Document not found" });
       }
     })
     .catch((error) => {
+      console.log("Entered");
+
       console.error("Error finding document:", error);
       res.status(500).json({ message: "Internal server error" });
     });

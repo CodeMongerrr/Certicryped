@@ -7,16 +7,20 @@ import UniversityPortal from "./component/UniversityPortal";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
 import Home from "./component/Home";
-
+import lighthouse from "@lighthouse-web3/sdk";
+import axios from "axios";
 function App() {
   const [account, setAccount] = useState([]);
   const [certificate, setcertificate] = useState(null);
   const [ifUniLogin, setifUniLogin] = useState(false);
+  const [meta_data, setmeta_data] = useState("okk");
   const message = "Joshi hai God";
   const loadWeb3 = async () => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
+      await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
@@ -24,10 +28,10 @@ function App() {
     }
   };
 
-  const signMessage = async () => {
+  const signMessage = async (api_msg) => {
     const web3 = window.web3;
     const signature = await web3.eth.personal.sign(
-      message,
+      api_msg,
       account,
       "Aditya111$"
     );
@@ -659,7 +663,49 @@ function App() {
     loadWeb3();
     loadContract();
   }, []);
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+    console.log(percentageDone);
+  };
 
+  const uploadFile = async (e) => {
+    e.preventDefault();
+    const output = await lighthouse.uploadText(
+      meta_data,
+      "0040bebe.ece4300144684570902bf7ac1c02de92",
+      "Data",
+      progressCallback
+    );
+    console.log("File Status:", output);
+    /*
+      output:
+        data: {
+          Name: "filename.txt",
+          Size: 88000,
+          Hash: "QmWNmn2gr4ZihNPqaC5oTeePsHvFtkWNpjY3cD6Fd5am1w"
+        }
+      Note: Hash in response is CID.
+    */
+
+    console.log(
+      "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
+    );
+  };
+  const getApiKey = async () => {
+    const web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+    const verificationMessage = (
+      await axios.get(
+        `https://api.lighthouse.storage/api/auth/get_message?publicKey=${account}`
+      )
+    ).data;
+    const signedMessage = await signMessage(verificationMessage);
+    const response = await lighthouse.getApiKey(account, signedMessage);
+    console.log(response);
+    /* { data: { apiKey: '7d8f3d18.eda91521aa294773a8201d2a7d241a2c' } } */
+  };
   const mint_certificate = async (name, program, holder_key) => {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
@@ -668,7 +714,7 @@ function App() {
 
     today = dd + "/" + mm + "/" + yyyy;
     console.log(today);
-    if (name != "" && program != "" && holder_key != 0) {
+    if (name !== "" && program !== "" && holder_key !== 0) {
       await certificate.methods
         .mintCertificate(name, today, program, holder_key)
         .send({ from: account })
@@ -692,6 +738,7 @@ function App() {
     });
     const account = accounts[0];
     const signature = await signMessage(message, account);
+    console.log(signature)
     const counter_account = await web3.eth.personal.ecRecover(
       message,
       signature
@@ -699,6 +746,7 @@ function App() {
     let data = {
       public_key: counter_account,
     };
+    console.log(counter_account);
     const response = await fetch("/api/account_exists", {
       method: "POST",
       headers: {
@@ -707,11 +755,10 @@ function App() {
       body: JSON.stringify(data),
     });
     console.log(response);
-    if (account.toLowerCase() == counter_account && response.status == 200) {
+    if (account.toLowerCase() === counter_account) {
       setifUniLogin(true);
     }
   };
-
   const approve = async (university_pub_key) => {
     await certificate.methods
       .approveUniversity(university_pub_key)
@@ -759,6 +806,19 @@ function App() {
           )}
         </Routes>
       </Router>
+      <form onSubmit={uploadFile}>
+        <input
+          type="text"
+          value={meta_data}
+          onChange={(e) => setmeta_data(e.target.value)}
+        />
+        <button className="btn btn-danger" type="submit">
+          ClickME
+        </button>
+      </form>
+      <button className="btn btn-dark" onClick={getApiKey}>
+        GET API
+      </button>
     </>
   );
 }

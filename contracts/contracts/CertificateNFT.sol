@@ -13,12 +13,13 @@ contract CertificateNFT is ERC721, Ownable {
         string programOfStudy;
     }
 
-    mapping(uint256 => Certificate) public certificates;
-    mapping(address => bool) public approvedUniversities;
-
-    event CertificateIssued(uint256 tokenId, address indexed owner, string name, string dateOfIssuance, string programOfStudy);
-    event UniversityApproved(address university);
-    event UniversityRevoked(address university);
+    event CertificateIssued(
+        uint256 tokenId,
+        address indexed owner,
+        string name,
+        string dateOfIssuance,
+        string programOfStudy
+    );
 
     constructor() ERC721("CertificateNFT", "CERT") {}
 
@@ -26,19 +27,16 @@ contract CertificateNFT is ERC721, Ownable {
         return _tokenIdCounter;
     }
 
+    mapping(uint256 => Certificate) public certificates;
+    mapping(address => bool) public approvedUniversities;
+    event UniversityApproved(address university);
+    event UniversityRevoked(address university);
     modifier onlyUniversity() {
-        require(approvedUniversities[msg.sender], "Only approved universities can perform this action");
+        require(
+            approvedUniversities[msg.sender],
+            "Only approved universities can perform this action"
+        );
         _;
-    }
-
-    function mintCertificate(address owner, string memory name, string memory dateOfIssuance, string memory programOfStudy) external onlyUniversity {
-        uint256 tokenId = _tokenIdCounter;
-        _tokenIdCounter++;
-
-        _safeMint(owner, tokenId);
-        certificates[tokenId] = Certificate(name, dateOfIssuance, programOfStudy);
-        safeTransferFrom(owner, msg.sender, tokenId);
-        emit CertificateIssued(tokenId, owner, name, dateOfIssuance, programOfStudy);
     }
 
     function approveUniversity(address university) external onlyOwner {
@@ -50,11 +48,44 @@ contract CertificateNFT is ERC721, Ownable {
         approvedUniversities[university] = false;
         emit UniversityRevoked(university);
     }
-    function transferCertificate(address from, address to, uint256 tokenId) external {
-    require(ownerOf(tokenId) == from, "You are not the owner of this certificate");
+    
+    function mintCertificate(
+        address owner,
+        string memory name,
+        string memory dateOfIssuance,
+        string memory programOfStudy
+    ) external onlyUniversity {
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
 
-    safeTransferFrom(from, to, tokenId);
+        _safeMint(owner, tokenId);
+        certificates[tokenId] = Certificate(
+            name,
+            dateOfIssuance,
+            programOfStudy
+        );
+        safeTransferFrom(owner, msg.sender, tokenId);
+        emit CertificateIssued(
+            tokenId,
+            owner,
+            name,
+            dateOfIssuance,
+            programOfStudy
+        );
+    }
 
-    emit Transfer(from, to, tokenId);
-}
+    function transferCertificate(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external {
+        require(
+            ownerOf(tokenId) == from,
+            "You are not the owner of this certificate"
+        );
+
+        safeTransferFrom(from, to, tokenId);
+
+        emit Transfer(from, to, tokenId);
+    }
 }
