@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import Home from "./component/Home";
 import lighthouse from "@lighthouse-web3/sdk";
 import axios from "axios";
-function App() { 
+function App() {
   const [account, setAccount] = useState([]);
   const [certificate, setcertificate] = useState(null);
   const [ifUniLogin, setifUniLogin] = useState(false);
