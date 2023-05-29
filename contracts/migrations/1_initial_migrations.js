@@ -1,5 +1,5 @@
-const CertificateNFT = artifacts.require("CertificateNFT");
+const Certicryp = artifacts.require("Certicryp");
 
 module.exports = function(deployer) {
-  deployer.deploy(CertificateNFT);
+  deployer.deploy(Certicryp);
 };

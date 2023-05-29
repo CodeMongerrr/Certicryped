@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/models");
+const ipfsClient = require("ipfs-http-client");
+
+
 
 router.post("/createuser", async (req, res) => {
   try {
@@ -43,5 +46,24 @@ router.get("/account_exists", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     });
 });
+router.post("/cid", async (req, res) => {
+  console.log("Entered");
+  const uploadMetadataToIPFS = async (metadata) => {
+    try {
+      const ipfs = ipfsClient.create();
 
+      const metadataBuffer = Buffer.from(JSON.stringify(metadata));
+      const  cid  = await ipfs.add(metadataBuffer);
+      console.log(cid)
+      const link = `https://ipfs.io/ipfs/${cid.cid.toString()}`;
+      return link;
+    } catch (error) {
+      console.error("Error uploading metadata to IPFS:", error);
+      throw error;
+    }
+  };
+  const CID = await uploadMetadataToIPFS(req.body);
+  console.log(req.body)
+  console.log(CID);
+});
 module.exports = router;

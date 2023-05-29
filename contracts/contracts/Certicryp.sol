@@ -1,18 +1,16 @@
 // Try using this as URI ipfs://bafkreic6ov4qo4ucd4g4uuyve4h72nc4y2lg7ugtq3n3vxnfp3lojvtmdu
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts@4.7.0/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts@4.7.0/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts@4.7.0/access/Ownable.sol";
-import "@openzeppelin/contracts@4.7.0/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
+contract Certicryp is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
-
     Counters.Counter private _tokenIdCounter;
-
     event Attest(address indexed to, uint256 indexed tokenId);
     event Revoke(address indexed to, uint256 indexed tokenId);
     mapping(address => bool) public approvedUniversities;
@@ -24,6 +22,18 @@ contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
             "Only approved universities can perform this action"
         );
         _;
+    }
+
+    function supportsInterface(
+        bytes4 interfaceId
+    )
+        public
+        view
+        virtual
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 
     function approveUniversity(address university) external onlyOwner {
@@ -38,10 +48,10 @@ contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
 
     constructor() ERC721("Certicryp", "CRT") {}
 
-    function mintCertificate(address to, string memory metadata)
-        public
-        onlyUniversity
-    {
+    function mintCertificate(
+        address to,
+        string memory metadata
+    ) public onlyUniversity {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
@@ -64,7 +74,7 @@ contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
         address from,
         address to,
         uint256
-    ) internal pure override {
+    ) internal pure {
         require(
             from == address(0) || to == address(0),
             "Not allowed to transfer token"
@@ -75,7 +85,7 @@ contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
         address from,
         address to,
         uint256 tokenId
-    ) internal override {
+    ) internal {
         if (from == address(0)) {
             emit Attest(to, tokenId);
         } else if (to == address(0)) {
@@ -83,19 +93,15 @@ contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
         }
     }
 
-    function _burn(uint256 tokenId)
-        internal
-        override(ERC721, ERC721URIStorage)
-    {
+    function _burn(
+        uint256 tokenId
+    ) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
     }
 
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
+    function tokenURI(
+        uint256 tokenId
+    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
     }
 }
