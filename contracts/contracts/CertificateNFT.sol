@@ -1,33 +1,20 @@
+// Try using this as URI ipfs://bafkreic6ov4qo4ucd4g4uuyve4h72nc4y2lg7ugtq3n3vxnfp3lojvtmdu
+
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts@4.7.0/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts@4.7.0/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts@4.7.0/access/Ownable.sol";
+import "@openzeppelin/contracts@4.7.0/utils/Counters.sol";
 
-contract CertificateNFT is ERC721, Ownable {
-    uint256 private _tokenIdCounter;
+contract Web3ClubTourToken is ERC721, ERC721URIStorage, Ownable {
+    using Counters for Counters.Counter;
 
-    struct Certificate {
-        string name;
-        string dateOfIssuance;
-        string programOfStudy;
-    }
+    Counters.Counter private _tokenIdCounter;
 
-    event CertificateIssued(
-        uint256 tokenId,
-        address indexed owner,
-        string name,
-        string dateOfIssuance,
-        string programOfStudy
-    );
-
-    constructor() ERC721("CertificateNFT", "CERT") {}
-
-    function totalSupply() external view returns (uint256) {
-        return _tokenIdCounter;
-    }
-
-    mapping(uint256 => Certificate) public certificates;
+    event Attest(address indexed to, uint256 indexed tokenId);
+    event Revoke(address indexed to, uint256 indexed tokenId);
     mapping(address => bool) public approvedUniversities;
     event UniversityApproved(address university);
     event UniversityRevoked(address university);
@@ -48,44 +35,67 @@ contract CertificateNFT is ERC721, Ownable {
         approvedUniversities[university] = false;
         emit UniversityRevoked(university);
     }
-    
-    function mintCertificate(
-        address owner,
-        string memory name,
-        string memory dateOfIssuance,
-        string memory programOfStudy
-    ) external onlyUniversity {
-        uint256 tokenId = _tokenIdCounter;
-        _tokenIdCounter++;
 
-        _safeMint(owner, tokenId);
-        certificates[tokenId] = Certificate(
-            name,
-            dateOfIssuance,
-            programOfStudy
+    constructor() ERC721("Certicryp", "CRT") {}
+
+    function mintCertificate(address to, string memory metadata)
+        public
+        onlyUniversity
+    {
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, metadata);
+    }
+
+    function burn(uint256 tokenId) external {
+        require(
+            ownerOf(tokenId) == msg.sender,
+            "Only owner of the token can burn it"
         );
-        safeTransferFrom(owner, msg.sender, tokenId);
-        emit CertificateIssued(
-            tokenId,
-            owner,
-            name,
-            dateOfIssuance,
-            programOfStudy
+        _burn(tokenId);
+    }
+
+    function revoke(uint256 tokenId) external onlyOwner {
+        _burn(tokenId);
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256
+    ) internal pure override {
+        require(
+            from == address(0) || to == address(0),
+            "Not allowed to transfer token"
         );
     }
 
-    function transferCertificate(
+    function _afterTokenTransfer(
         address from,
         address to,
         uint256 tokenId
-    ) external {
-        require(
-            ownerOf(tokenId) == from,
-            "You are not the owner of this certificate"
-        );
+    ) internal override {
+        if (from == address(0)) {
+            emit Attest(to, tokenId);
+        } else if (to == address(0)) {
+            emit Revoke(to, tokenId);
+        }
+    }
 
-        safeTransferFrom(from, to, tokenId);
+    function _burn(uint256 tokenId)
+        internal
+        override(ERC721, ERC721URIStorage)
+    {
+        super._burn(tokenId);
+    }
 
-        emit Transfer(from, to, tokenId);
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
     }
 }

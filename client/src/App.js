@@ -15,6 +15,7 @@ function App() {
   const [ifUniLogin, setifUniLogin] = useState(false);
   const [meta_data, setmeta_data] = useState("okk");
   const message = "Joshi hai God";
+
   useEffect(() => {
     // Call the loadWeb3 function
     loadWeb3();
