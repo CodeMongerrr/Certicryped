@@ -674,15 +674,19 @@ function App() {
       console.log();
       setMetaData(MetaData);
       const URI = await uploadFile();
-      const result = await certificate.methods
-        .mintCertificate(holder_key, URI)
-        .send({ from: account })
-        .on("transactionHash", function (hash) {
-          setTokenid(tokenid + 1);
-        });
-      console.log(URI);
+      try {
+        const result = await certificate.methods
+          .mintCertificate(holder_key, URI)
+          .send({ from: account })
+          .on("transactionHash", function (hash) {
+            setTokenid(tokenid + 1);
+          });
+        console.log(URI);
+      } catch (error) {
+        alert("Use the correct account");
+      }
     } else {
-      console.log("Fill the input properly");
+      alert("Bad Input");
     }
   };
   const connect = async (event) => {
