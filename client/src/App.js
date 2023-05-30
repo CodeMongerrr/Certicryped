@@ -7,20 +7,22 @@ import UniversityPortal from "./component/UniversityPortal";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
 import Home from "./component/Home";
-import lighthouse from "@lighthouse-web3/sdk";
+import lighthouse, { getAccessConditions } from "@lighthouse-web3/sdk";
 import axios from "axios";
 function App() {
   const [account, setAccount] = useState([]);
   const [certificate, setcertificate] = useState(null);
   const [ifUniLogin, setifUniLogin] = useState(false);
-  const [meta_data, setmeta_data] = useState("okk");
+  const [MetaData, setMetaData] = useState(null);
+  const [_data, set_data] = useState("");
+  const [tokenid, setTokenid] = useState(9);
   const message = "Joshi hai God";
   const loadWeb3 = async () => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x539" }], // chainId must be in hexadecimal numbers
+        params: [{ chainId: "0x13881" }], // chainId must be in hexadecimal numbers
       });
       await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -29,7 +31,7 @@ function App() {
       window.web3 = new Web3(window.web3.currentProvider);
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x61" }], // chainId must be in hexadecimal numbers
+        params: [{ chainId: "0x13881" }], // chainId must be in hexadecimal numbers
       });
     } else {
       window.alert("Non Ethereum browser detected");
@@ -142,60 +144,45 @@ function App() {
         anonymous: false,
         inputs: [
           {
-            indexed: false,
+            indexed: true,
+            internalType: "address",
+            name: "to",
+            type: "address",
+          },
+          {
+            indexed: true,
             internalType: "uint256",
             name: "tokenId",
             type: "uint256",
           },
-          {
-            indexed: true,
-            internalType: "address",
-            name: "owner",
-            type: "address",
-          },
-          {
-            indexed: false,
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            indexed: false,
-            internalType: "string",
-            name: "dateOfIssuance",
-            type: "string",
-          },
-          {
-            indexed: false,
-            internalType: "string",
-            name: "programOfStudy",
-            type: "string",
-          },
         ],
-        name: "CertificateIssued",
+        name: "Attest",
         type: "event",
       },
       {
         inputs: [
           {
-            internalType: "string",
-            name: "name",
-            type: "string",
+            internalType: "uint256",
+            name: "tokenId",
+            type: "uint256",
           },
-          {
-            internalType: "string",
-            name: "dateOfIssuance",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "programOfStudy",
-            type: "string",
-          },
+        ],
+        name: "burn",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
           {
             internalType: "address",
-            name: "holder",
+            name: "to",
             type: "address",
+          },
+          {
+            internalType: "string",
+            name: "metadata",
+            type: "string",
           },
         ],
         name: "mintCertificate",
@@ -228,6 +215,38 @@ function App() {
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "uint256",
+            name: "tokenId",
+            type: "uint256",
+          },
+        ],
+        name: "revoke",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "to",
+            type: "address",
+          },
+          {
+            indexed: true,
+            internalType: "uint256",
+            name: "tokenId",
+            type: "uint256",
+          },
+        ],
+        name: "Revoke",
+        type: "event",
       },
       {
         inputs: [
@@ -354,29 +373,6 @@ function App() {
             type: "uint256",
           },
         ],
-        name: "transferCertificate",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          {
-            internalType: "address",
-            name: "from",
-            type: "address",
-          },
-          {
-            internalType: "address",
-            name: "to",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "tokenId",
-            type: "uint256",
-          },
-        ],
         name: "transferFrom",
         outputs: [],
         stateMutability: "nonpayable",
@@ -463,59 +459,11 @@ function App() {
         inputs: [
           {
             internalType: "uint256",
-            name: "",
-            type: "uint256",
-          },
-        ],
-        name: "certificates",
-        outputs: [
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "dateOfIssuance",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "programOfStudy",
-            type: "string",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [
-          {
-            internalType: "uint256",
             name: "tokenId",
             type: "uint256",
           },
         ],
         name: "getApproved",
-        outputs: [
-          {
-            internalType: "address",
-            name: "",
-            type: "address",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [
-          {
-            internalType: "uint256",
-            name: "tokenId",
-            type: "uint256",
-          },
-        ],
-        name: "getOwnerOfCertificate",
         outputs: [
           {
             internalType: "address",
@@ -646,21 +594,8 @@ function App() {
         stateMutability: "view",
         type: "function",
       },
-      {
-        inputs: [],
-        name: "totalSupply",
-        outputs: [
-          {
-            internalType: "uint256",
-            name: "",
-            type: "uint256",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-      },
     ];
-    const certificate_address = "0xf8C0FB7627568959722bD0DcE194A1C59EDBc1d6";
+    const certificate_address = "0x56C3EAaaB9CC652cbf7318940a8D776b40284af8";
     const certificate = new web3.eth.Contract(
       certificate_abi,
       certificate_address
@@ -677,75 +612,77 @@ function App() {
     console.log(percentageDone);
   };
 
-  // const uploadFile = async (e) => {
-  //   e.preventDefault();
-  //   const output = await lighthouse.uploadText(
-  //     meta_data,
-  //     "0040bebe.ece4300144684570902bf7ac1c02de92",
-  //     "Data",
-  //     progressCallback
-  //   );
-  //   console.log("File Status:", output);
-    
-  //   console.log(
-  //     "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
-  //   );
-  // };
-  // const getApiKey = async () => {
-  //   const web3 = window.web3;
-  //   const accounts = await web3.eth.getAccounts();
-  //   const account = accounts[0];
-  //   const verificationMessage = (
-  //     await axios.get(
-  //       `https://api.lighthouse.storage/api/auth/get_message?publicKey=${account}`
-  //     )
-  //   ).data;
-  //   const signedMessage = await signMessage(verificationMessage);
-  //   const response = await lighthouse.getApiKey(account, signedMessage);
-  //   console.log(response);
-  //   /* { data: { apiKey: '7d8f3d18.eda91521aa294773a8201d2a7d241a2c' } } */
-  // };
+  const uploadFile = async () => {
+    const output = await lighthouse.uploadText(
+      JSON.stringify(MetaData),
+      "0040bebe.ece4300144684570902bf7ac1c02de92",
+      "Data",
+      progressCallback
+    );
+    console.log("File Status:", output);
+    console.log(
+      "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
+    );
+    return output.data.Hash;
+  };
+  const retrieve = async () => {
+    const url = await certificate.methods
+      .tokenURI(tokenid)
+      .call({ from: account });
+    console.log(url);
+    const metadata = await axios.get(url);
+    console.log(metadata.data);
+    return metadata.data;
+  };
+
+  const getApiKey = async () => {
+    const web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+    const verificationMessage = (
+      await axios.get(
+        `https://api.lighthouse.storage/api/auth/get_message?publicKey=${account}`
+      )
+    ).data;
+    const signedMessage = await signMessage(verificationMessage);
+    const response = await lighthouse.getApiKey(account, signedMessage);
+    console.log(response);
+    /* { data: { apiKey: '7d8f3d18.eda91521aa294773a8201d2a7d241a2c' } } */
+  };
   const userdata = {
     name: "Aditya Roshan Joshi",
     program: "Blockchain",
-    position: "Developer"
-  }
-  const uploadFile = async(event) => {
-    event.preventDefault();
-    const response = await fetch("/api/cid", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userdata),
-    });
-    console.log(response);
-  }
-  const mint_certificate = async (name, program, holder_key) => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
-
-    today = dd + "/" + mm + "/" + yyyy;
-    console.log(today);
-    if (name !== "" && program !== "" && holder_key !== 0) {
-      const ok = await certificate.methods
-        .mintCertificate(name, today, program, holder_key)
-        .send({ from: account })
-        .on("transactionHash", function (hash) {
-          console.log("University Approved Successfully");
-        });
-      console.log("ok ki value next");
-      console.log(ok);
+    position: "Developer",
+  };
+  // const uploadFile = async (event) => {
+  //   event.preventDefault();
+  //   const response = await fetch("/api/cid", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(userdata),
+  //   });
+  //   console.log(response);
+  // };
+  const mintCertificate = async (holder_key, MetaData) => {
+    if (
+      MetaData !== { name: "", program: "", holder_key: "" } &&
+      holder_key !== 0
+    ) {
+      console.log("MetaData  =", MetaData);
+      console.log();
+      setMetaData(MetaData);
+      const URI = await uploadFile();
       const result = await certificate.methods
-        .getOwnerOfCertificate(1)
+        .mintCertificate(holder_key, URI)
         .send({ from: account })
         .on("transactionHash", function (hash) {
-          console.log("Owner of the NFT is");
+          setTokenid(tokenid + 1);
         });
-      console.log("yeh wala dusra hai ");
-      console.log(result);
+      console.log(URI);
+    } else {
+      console.log("Fill the input properly");
     }
   };
   const connect = async (event) => {
@@ -796,7 +733,7 @@ function App() {
         console.log(hash);
       });
   };
-
+  const url = "";
   return (
     <>
       <Router>
@@ -812,7 +749,7 @@ function App() {
           {ifUniLogin ? (
             <Route
               path="/university"
-              element={<UniversityPortal mint_certificate={mint_certificate} />}
+              element={<UniversityPortal mintCertificate={mintCertificate} />}
             ></Route>
           ) : (
             <Route
@@ -827,14 +764,14 @@ function App() {
       <form onSubmit={uploadFile}>
         <input
           type="text"
-          value={meta_data}
-          onChange={(e) => setmeta_data(e.target.value)}
+          value={_data}
+          onChange={(e) => set_data(e.target.value)}
         />
         <button className="btn btn-danger" type="submit">
           ClickME
         </button>
       </form>
-      <button className="btn btn-dark" >
+      <button className="btn btn-dark" onClick={retrieve}>
         GET API
       </button>
     </>

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../CSS/University.css";
-export default function UniversityPortal({ mint_certificate }) {
+export default function UniversityPortal({ mintCertificate }) {
   const [name, setname] = useState("");
   const [program, setprogram] = useState("");
   const [holder_key, setholder_key] = useState(0x0000);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await mint_certificate(name, program, holder_key);
+    await mintCertificate(holder_key, {name: name, program: program, holder_key: holder_key});
   };
   return (
     <>
