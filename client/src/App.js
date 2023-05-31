@@ -1,21 +1,33 @@
 import "./App.css";
 import Navbar from "./component/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Owner from "./component/Owner";
-import UniversitySignUp from "./component/UniversitySignUp";
-import UniversityPortal from "./component/UniversityPortal";
+import Owner from "./component/Owner/Owner";
+import UniversitySignUp from "./component/University/UniversitySignUp";
+import UniversityPortal from "./component/University/UniversityPortal";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
 import Home from "./component/Home";
-import UniversityPortalRahil from './component/UniversiyPortalRahil';
+import UniversityPortalRahil from "./component/University/UniversiyPortalRahil";
 import lighthouse from "@lighthouse-web3/sdk";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import GetApi from "./component/GetApi";
+import UniversityAuth from "./component/University/UniversityAuth";
+import University from "./component/University/University";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // backgroundColor: "black",
+    width: "100vw",
+  },
+}));
 function App() {
   const [account, setAccount] = useState([]);
   const [certificate, setcertificate] = useState(null);
   const [ifUniLogin, setifUniLogin] = useState(false);
   const [meta_data, setmeta_data] = useState("okk");
   const message = "Joshi hai God";
+  const classes = useStyles();
   const loadWeb3 = async () => {
     // if (window.ethereum) {
     //   window.web3 = new Web3(window.ethereum);
@@ -688,7 +700,6 @@ function App() {
     //     }
     //   Note: Hash in response is CID.
     // */
-
     // console.log(
     //   "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
     // );
@@ -712,7 +723,6 @@ function App() {
     // var dd = String(today.getDate()).padStart(2, "0");
     // var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     // var yyyy = today.getFullYear();
-
     // today = dd + "/" + mm + "/" + yyyy;
     // console.log(today);
     // if (name !== "" && program !== "" && holder_key !== 0) {
@@ -784,7 +794,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className={classes.root}>
       <Router>
         <div>
           <Navbar />
@@ -806,25 +816,16 @@ function App() {
               path="/university"
               element={
                 <UniversitySignUp connect={connect} signMessage={signMessage} />
+                // <UniversityAuth/>
               }
             ></Route>
           )}
+          {/* <Route path="/university" element={<University connect={connect} signMessage={signMessage}/>}></Route> */} 
+          {/* me ye just upper wale line of code se university portal bna rha hu, as disussed on the call, (jo abhi comment out hai), and  uncommented /university route hai, vo scrap kr dunga  */}
         </Routes>
       </Router>
-      <form onSubmit={uploadFile}>
-        <input
-          type="text"
-          value={meta_data}
-          onChange={(e) => setmeta_data(e.target.value)}
-        />
-        <button className="btn btn-danger" type="submit">
-          ClickME
-        </button>
-      </form>
-      <button className="btn btn-dark" onClick={getApiKey}>
-        GET API
-      </button>
-    </>
+      <GetApi getApiKey={getApiKey} uploadFile={uploadFile} />
+    </div>
   );
 }
 
