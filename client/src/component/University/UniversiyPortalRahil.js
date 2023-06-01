@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FileBase from "react-file-base64";
-import { Box, Container, TextField, Button, Typography } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  TextField,
+  Button,
+  Typography,
+} from "@material-ui/core";
 import CSVReader from "react-csv-reader";
-import img from '../../images/bgimg.jpg';
+import img from "../../images/bgimg.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,21 +32,21 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     marginBottom: theme.spacing(2),
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
         borderColor: "rgba(256, 256, 256, 0.6)",
       },
-      '&:hover fieldset': {
+      "&:hover fieldset": {
         borderColor: "rgba(256, 256, 256, 0.6)",
       },
-      '&.Mui-focused fieldset': {
+      "&.Mui-focused fieldset": {
         borderColor: "rgba(256, 256, 256, 0.6)",
       },
-      '& input': {
+      "& input": {
         color: "rgba(256, 256, 256, 0.9)", // Set the input text color to white
       },
     },
-    '& .MuiInputLabel-root': {
+    "& .MuiInputLabel-root": {
       color: "rgba(256, 256, 256, 0.9)",
     },
   },
@@ -61,22 +67,23 @@ const useStyles = makeStyles((theme) => ({
   },
   fileInput: {
     marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)"
+    color: "rgba(256, 256, 256, 0.9)",
   },
 }));
 
-const MyComponent = () => {
+const MyComponent = ({ mintCertificate, uploadFile, loadAccount}) => {
   const classes = useStyles();
   const [csvData, setCsvData] = useState([]);
+  const [publickey, setPublickey] = useState("")
   const [formData, setFormData] = useState({
-    title: "Asset Metadata",
+    title: "NFT Metadata",
     type: "object",
     properties: {
       name: "",
       description: "",
-      image: null,
-      createAt: null,
-      DateofIssue: null,
+      image: "",
+      createAt: "",
+      DateofIssue: "",
     },
   });
 
@@ -86,9 +93,10 @@ const MyComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    uploadFile(formData);
+    mintCertificate(publickey, formData);
   };
-
+  
   useEffect(() => {
     const getCurrentTime = () => {
       const currentTime = new Date().toLocaleTimeString();
@@ -107,6 +115,9 @@ const MyComponent = () => {
   formData.properties.UniversityName = "IIT-ISM-Dhanbad";
 
   const handleInputChange = (e, property) => {
+    if(property === "publickey"){
+      setPublickey(e.target.value)
+    }
     setFormData({
       ...formData,
       properties: {
@@ -132,6 +143,7 @@ const MyComponent = () => {
             { label: "Name", property: "name" },
             { label: "Description", property: "description" },
             { label: "Date of Issue", property: "DateofIssue", type: "date" },
+            { label: "Public Key", property: "publickey"}
           ].map((field) => (
             <TextField
               key={field.property}
@@ -140,9 +152,13 @@ const MyComponent = () => {
               variant="outlined"
               fullWidth
               type={field.type}
-              value={csvData[0]?.[field.property] || formData.properties[field.property]}
+              value={
+                csvData[0]?.[field.property] ||
+                formData.properties[field.property]
+              }
               onChange={(e) => handleInputChange(e, field.property)}
             />
+            
           ))}
           <div className={classes.fileInput}>
             <FileBase
