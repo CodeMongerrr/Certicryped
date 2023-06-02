@@ -1,14 +1,26 @@
 import "./App.css";
 import Navbar from "./component/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Owner from "./component/Owner";
-import UniversitySignUp from "./component/UniversitySignUp";
-import UniversityPortal from "./component/UniversityPortal";
+import Owner from "./component/Owner/Owner";
+import UniversitySignUp from "./component/University/UniversitySignUp";
+import UniversityPortal from "./component/University/UniversityPortal";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
 import Home from "./component/Home";
-import lighthouse, { getAccessConditions } from "@lighthouse-web3/sdk";
+import UniversityPortalRahil from "./component/University/UniversiyPortalRahil";
+import lighthouse, { upload } from "@lighthouse-web3/sdk";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import GetApi from "./component/GetApi";
+import UniversityAuth from "./component/University/UniversityAuth";
+import University from "./component/University/University";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // backgroundColor: "black",
+    width: "100vw",
+  },
+}));
 function App() {
   const [account, setAccount] = useState([]);
   const [certificate, setcertificate] = useState(null);
@@ -16,6 +28,7 @@ function App() {
   const [MetaData, setMetaData] = useState(null);
   const [_data, set_data] = useState("");
   const [tokenid, setTokenid] = useState(9);
+  const classes = useStyles();
   const message = "Joshi hai God";
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -611,8 +624,7 @@ function App() {
       100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
     console.log(percentageDone);
   };
-
-  const uploadFile = async () => {
+  const uploadFile = async (MetaData) => {
     const output = await lighthouse.uploadText(
       JSON.stringify(MetaData),
       "0040bebe.ece4300144684570902bf7ac1c02de92",
@@ -624,7 +636,8 @@ function App() {
       "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
     );
     return output.data.Hash;
-  };
+  }
+
   const retrieve = async () => {
     const url = await certificate.methods
       .tokenURI(tokenid)
@@ -654,17 +667,7 @@ function App() {
     program: "Blockchain",
     position: "Developer",
   };
-  // const uploadFile = async (event) => {
-  //   event.preventDefault();
-  //   const response = await fetch("/api/cid", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(userdata),
-  //   });
-  //   console.log(response);
-  // };
+  
   const mintCertificate = async (holder_key, MetaData) => {
     if (
       MetaData !== { name: "", program: "", holder_key: "" } &&
@@ -682,6 +685,7 @@ function App() {
             setTokenid(tokenid + 1);
           });
         console.log(URI);
+
       } catch (error) {
         alert("Use the correct account");
       }
@@ -739,7 +743,7 @@ function App() {
   };
   const url = "";
   return (
-    <>
+    <div className={classes.root}>
       <Router>
         <div>
           <Navbar />
@@ -750,35 +754,28 @@ function App() {
             path="/owner"
             element={<Owner approve={approve} revoke={revoke} />}
           ></Route>
-          {ifUniLogin ? (
+          {!ifUniLogin ? (
             <Route
               path="/university"
-              element={<UniversityPortal mintCertificate={mintCertificate} />}
+              // element={<UniversityPortal mint_certificate={mint_certificate} />}
+              element={<UniversityPortalRahil  mintCertificate={mintCertificate} uploadFile={uploadFile} />}
+
             ></Route>
           ) : (
             <Route
               path="/university"
               element={
                 <UniversitySignUp connect={connect} signMessage={signMessage} />
+                // <UniversityAuth/>
               }
             ></Route>
           )}
+          {/* <Route path="/university" element={<University connect={connect} signMessage={signMessage}/>}></Route> */}
+          {/* me ye just upper wale line of code se university portal bna rha hu, as disussed on the call, (jo abhi comment out hai), and  uncommented /university route hai, vo scrap kr dunga  */}
         </Routes>
       </Router>
-      <form onSubmit={uploadFile}>
-        <input
-          type="text"
-          value={_data}
-          onChange={(e) => set_data(e.target.value)}
-        />
-        <button className="btn btn-danger" type="submit">
-          ClickME
-        </button>
-      </form>
-      <button className="btn btn-dark" onClick={retrieve}>
-        GET API
-      </button>
-    </>
+      <GetApi getApiKey={getApiKey} uploadFile={uploadFile} />
+    </div>
   );
 }
 
