@@ -684,6 +684,8 @@ function App() {
             setTokenid(tokenid + 1);
           });
         console.log(URI);
+        console.log(result)
+
       } catch (error) {
         alert("Use the correct account");
       }

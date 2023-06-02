@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyComponent = ({ mintCertificate, uploadFile, loadAccount}) => {
+const MyComponent = ({ mintCertificate, uploadFile}) => {
   const classes = useStyles();
   const [csvData, setCsvData] = useState([]);
   const [publickey, setPublickey] = useState("")
@@ -116,6 +116,7 @@ const MyComponent = ({ mintCertificate, uploadFile, loadAccount}) => {
 
   const handleInputChange = (e, property) => {
     if(property === "publickey"){
+      console.log("Entered")
       setPublickey(e.target.value)
     }
     setFormData({
