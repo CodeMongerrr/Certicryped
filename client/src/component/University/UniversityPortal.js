@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../CSS/University.css";
-export default function UniversityPortal({ mintCertificate }) {
+ export default function UniversityPortal({ mintCertificate }) {
   const [name, setname] = useState("");
   const [program, setprogram] = useState("");
   const [holder_key, setholder_key] = useState(0x0000);
