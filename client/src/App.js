@@ -624,7 +624,6 @@ function App() {
       100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
     console.log(percentageDone);
   };
-
   const uploadFile = async (MetaData) => {
     const output = await lighthouse.uploadText(
       JSON.stringify(MetaData),
@@ -637,7 +636,8 @@ function App() {
       "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
     );
     return output.data.Hash;
-  };
+  }
+
   const retrieve = async () => {
     const url = await certificate.methods
       .tokenURI(tokenid)
@@ -667,6 +667,7 @@ function App() {
     program: "Blockchain",
     position: "Developer",
   };
+  
   const mintCertificate = async (holder_key, MetaData) => {
     if (
       MetaData !== { name: "", program: "", holder_key: "" } &&
@@ -684,7 +685,6 @@ function App() {
             setTokenid(tokenid + 1);
           });
         console.log(URI);
-        console.log(result)
 
       } catch (error) {
         alert("Use the correct account");
@@ -741,7 +741,7 @@ function App() {
         console.log(hash);
       });
   };
-
+  const url = "";
   return (
     <div className={classes.root}>
       <Router>
@@ -759,6 +759,7 @@ function App() {
               path="/university"
               // element={<UniversityPortal mint_certificate={mint_certificate} />}
               element={<UniversityPortalRahil  mintCertificate={mintCertificate} uploadFile={uploadFile} />}
+
             ></Route>
           ) : (
             <Route
