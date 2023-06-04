@@ -1,13 +1,13 @@
 import React from 'react'
-import UniversityPortal from './UniversityPortal';
+import { useState } from 'react';
+import UniversityPortalRahil from './UniversiyPortalRahil';
 import UniversityAuth from './UniversityAuth';
 
-const University = () => {
-
-    const universityUser = null;
+const University = ({connect, ifUniLogin}) => {
+const [isLogin, setisLogin] = useState(false)
   return (
     <div>
-        {(universityUser) ? (<UniversityPortal/>) : (<UniversityAuth/>)}
+        {(isLogin) ? (<UniversityPortalRahil/>) : (<UniversityAuth connect={connect} ifUniLogin={ifUniLogin}/>)}
     </div>
   )
 }

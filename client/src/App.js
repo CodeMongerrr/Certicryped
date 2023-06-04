@@ -3,7 +3,6 @@ import Navbar from "./component/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Owner from "./component/Owner/Owner";
 import UniversitySignUp from "./component/University/UniversitySignUp";
-import UniversityPortal from "./component/University/UniversityPortal";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
 import Home from "./component/Home";
@@ -12,6 +11,7 @@ import lighthouse, { upload } from "@lighthouse-web3/sdk";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import GetApi from "./component/GetApi";
+import UniversitySignInRahil from './component/University/UniversitySignInRahil'
 import UniversityAuth from "./component/University/UniversityAuth";
 import University from "./component/University/University";
 
@@ -693,7 +693,7 @@ function App() {
       alert("Bad Input");
     }
   };
-  const connect = async (event) => {
+  const connect = async () => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
     await window.ethereum.request({
@@ -754,25 +754,8 @@ function App() {
             path="/owner"
             element={<Owner approve={approve} revoke={revoke} />}
           ></Route>
-          {!ifUniLogin ? (
-            <Route
-              path="/university"
-              // element={<UniversityPortal mint_certificate={mint_certificate} />}
-              element={<UniversityPortalRahil  mintCertificate={mintCertificate} uploadFile={uploadFile} />}
-
-            ></Route>
-          ) : (
-            <Route
-              path="/university"
-              element={
-                <UniversitySignUp connect={connect} signMessage={signMessage} />
-                // <UniversityAuth/>
-              }
-            ></Route>
-          )}
-          {/* <Route path="/university" element={<University connect={connect} signMessage={signMessage}/>}></Route> */}
-          {/* me ye just upper wale line of code se university portal bna rha hu, as disussed on the call, (jo abhi comment out hai), and  uncommented /university route hai, vo scrap kr dunga  */}
-        </Routes>
+          <Route path="/university" element={<University connect={connect} ifUniLogin={ifUniLogin} />}></Route>
+          </Routes>
       </Router>
       <GetApi getApiKey={getApiKey} uploadFile={uploadFile} />
     </div>

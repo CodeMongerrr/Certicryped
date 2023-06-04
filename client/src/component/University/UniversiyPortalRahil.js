@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyComponent = ({ mintCertificate, uploadFile}) => {
+const UniversityPortalRahil = ({ mintCertificate, uploadFile}) => {
   const classes = useStyles();
   const [csvData, setCsvData] = useState([]);
   const [publickey, setPublickey] = useState("")
@@ -187,4 +187,4 @@ const MyComponent = ({ mintCertificate, uploadFile}) => {
   );
 };
 
-export default MyComponent;
+export default UniversityPortalRahil;

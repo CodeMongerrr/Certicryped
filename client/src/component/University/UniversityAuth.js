@@ -3,12 +3,11 @@ import { Container, TextField, Button } from '@material-ui/core';
 import UniversitySignupRahil from './UniversitySignupRahil';
 import UniversitySignInRahil from './UniversitySignInRahil';
 
-const UniversityAuth = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
-
+const UniversityAuth = ({connect, ifUniLogin}) => {
+  
   return (
     <div>
-      {(isSignUp) ? (<UniversitySignupRahil/>) : (<UniversitySignInRahil/>)}
+      {(ifUniLogin) ? (<UniversitySignupRahil/>) : (<UniversitySignInRahil connect={connect} />)}
     </div>
   );
 };
