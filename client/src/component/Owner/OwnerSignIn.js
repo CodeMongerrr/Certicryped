@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Container, TextField, Button } from "@material-ui/core";
 import * as api from "../../api/index";
 import { useDispatch } from "react-redux";
-import { UniversitySignIn } from "../../actions/auth";
+import { OwnerSignIn } from "../../actions/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const UniversitySignInRahil = () => {
+const OwnerSignin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    UniversityEmail: "",
-    UniversityPassword: "",
+    OwnerEmail: "",
+    OwnerPassword: "",
   });
 
   const handleInputChange = (event) => {
@@ -25,7 +25,7 @@ const UniversitySignInRahil = () => {
     event.preventDefault();
     console.log(formData);
     // try {
-    //   const response = await api.UniversitySignIn(formData);
+    //   const response = await api.OwnerSignIn(formData);
     //   if(response.status === 201) console.log(response.data);
     //   else{
     //     console.log("mil gaya");
@@ -36,7 +36,7 @@ const UniversitySignInRahil = () => {
     //    console.log(error);
     // }
     console.log("outside");
-    dispatch(UniversitySignIn(formData, navigate));
+    dispatch(OwnerSignIn(formData, navigate));
   };
 
   return (
@@ -47,8 +47,8 @@ const UniversitySignInRahil = () => {
           variant="outlined"
           fullWidth
           margin="normal"
-          name="UniversityEmail"
-          value={formData.UniversityEmail}
+          name="OwnerEmail"
+          value={formData.OwnerEmail}
           onChange={handleInputChange}
         />
         <TextField
@@ -57,8 +57,8 @@ const UniversitySignInRahil = () => {
           type="password"
           fullWidth
           margin="normal"
-          name="UniversityPassword"
-          value={formData.UniversityPassword}
+          name="OwnerPassword"
+          value={formData.OwnerPassword}
           onChange={handleInputChange}
         />
         <Button variant="contained" color="primary" type="submit">
@@ -69,4 +69,4 @@ const UniversitySignInRahil = () => {
   );
 };
 
-export default UniversitySignInRahil;
+export default OwnerSignin;

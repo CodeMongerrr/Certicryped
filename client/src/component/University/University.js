@@ -3,11 +3,11 @@ import UniversityPortal from './UniversityPortal';
 import UniversityAuth from './UniversityAuth';
 
 const University = () => {
+  const universityUser = localStorage.getItem('Universityprofile');
 
-    const universityUser = null;
   return (
     <div>
-        {(universityUser) ? (<UniversityPortal/>) : (<UniversityAuth/>)}
+      {(universityUser) ? (<UniversityPortal/>) : (<UniversityAuth/>)}
     </div>
   )
 }

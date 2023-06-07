@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import { Container, TextField, Button } from "@material-ui/core";
 import * as api from "../../api/index";
 import { useDispatch } from "react-redux";
-import { Universitysignup } from "../../actions/auth";
+import { Ownersignup } from "../../actions/auth";
 import { useNavigate } from "react-router-dom";
-
-const UniversitySignupRahil = () => {
+const OwnerSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    UniversityName: "",
-    UniversityEmail: "",
-    UniversityPassword: "",
-    UniversityConfirmPassword: "",
-    Branch: "",
-    UniversityPublicKey: "",
-    BranchPublicKey: "",
+    OwnerName: "",
+    OwnerEmail: "",
+    OwnerPassword: "",
+    OwnerConfirmPassword: "",
+    OwnerPublicKey: "",
   });
 
   const handleInputChange = (event) => {
@@ -30,7 +27,7 @@ const UniversitySignupRahil = () => {
     event.preventDefault();
     console.log(formData);
     // try {
-    //   const response = await api.UniversitySignUp(formData);
+    //   const response = await api.OwnerSignUp(formData);
     //   if(response.status === 201) console.log(response.data);
     //   else{
     //     console.log("ban gaya");
@@ -40,19 +37,20 @@ const UniversitySignupRahil = () => {
     // } catch (error) {
     //    console.log(error);
     // }
-    dispatch(Universitysignup(formData, navigate));
+    console.log("before dispatchind action creater")
+    dispatch(Ownersignup(formData, navigate));
   };
 
   return (
     <Container maxWidth="sm">
       <form onSubmit={handleFormSubmit}>
         <TextField
-          label="Name of University"
+          label="Name of Owner"
           variant="outlined"
           fullWidth
           margin="normal"
-          name="UniversityName"
-          value={formData.UniversityName}
+          name="OwnerName"
+          value={formData.OwnerName}
           onChange={handleInputChange}
         />
         <TextField
@@ -60,8 +58,8 @@ const UniversitySignupRahil = () => {
           variant="outlined"
           fullWidth
           margin="normal"
-          name="UniversityEmail"
-          value={formData.UniversityEmail}
+          name="OwnerEmail"
+          value={formData.OwnerEmail}
           onChange={handleInputChange}
         />
         <TextField
@@ -70,8 +68,8 @@ const UniversitySignupRahil = () => {
           type="password"
           fullWidth
           margin="normal"
-          name="UniversityPassword"
-          value={formData.UniversityPassword}
+          name="OwnerPassword"
+          value={formData.OwnerPassword}
           onChange={handleInputChange}
         />
         <TextField
@@ -80,35 +78,17 @@ const UniversitySignupRahil = () => {
           type="password"
           fullWidth
           margin="normal"
-          name="UniversityConfirmPassword"
-          value={formData.UniversityConfirmPassword}
+          name="OwnerConfirmPassword"
+          value={formData.OwnerConfirmPassword}
           onChange={handleInputChange}
         />
         <TextField
-          label="Branch"
+          label="Owner Public Key"
           variant="outlined"
           fullWidth
           margin="normal"
-          name="Branch"
-          value={formData.Branch}
-          onChange={handleInputChange}
-        />
-        <TextField
-          label="University Public Key"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          name="UniversityPublicKey"
-          value={formData.UniversityPublicKey}
-          onChange={handleInputChange}
-        />
-        <TextField
-          label="Branch Public Key"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          name="BranchPublicKey"
-          value={formData.BranchPublicKey}
+          name="OwnerPublicKey"
+          value={formData.OwnerPublicKey}
           onChange={handleInputChange}
         />
         <Button variant="contained" color="primary" type="submit">
@@ -119,4 +99,4 @@ const UniversitySignupRahil = () => {
   );
 };
 
-export default UniversitySignupRahil;
+export default OwnerSignUp;
