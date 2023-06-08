@@ -50,6 +50,21 @@ const useStyles = makeStyles((theme) => ({
   },
   submitButton: {
     marginTop: theme.spacing(3),
+    marginRight: "10px"
+  },
+  loginButton: {
+    padding: theme.spacing(0.75,2),
+    fontSize: "20px",
+    borderRadius: "15px",
+    background: "linear-gradient(35deg, #FE6B8B 30%, #FF8E53 90%)",
+    color: "white",
+    fontWeight: "bold",
+    float: "left",
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    transition: "transform 0.2s",
+    "&:hover": {
+      transform: "scale(1.05)",
+    },
   },
   heading: {
     marginBottom: theme.spacing(3),
@@ -61,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UniversitySignIn = ({ registerUniversity }) => {
+const UniversitySignUpRahil = ({ connect }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     universityName: "",
@@ -74,7 +89,7 @@ const UniversitySignIn = ({ registerUniversity }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.l(formData);
+    console.log(formData);
   };
 
   const handleInputChange = (e, property) => {
@@ -83,7 +98,9 @@ const UniversitySignIn = ({ registerUniversity }) => {
       [property]: e.target.value,
     });
   };
-
+  const handleLogin = () => {
+    connect();
+  };
   return (
     <Box className={classes.root}>
       <Container maxWidth="sm">
@@ -147,10 +164,18 @@ const UniversitySignIn = ({ registerUniversity }) => {
           >
             Register
           </Button>
+          <Button
+            className={classes.loginButton}
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
         </form>
       </Container>
     </Box>
   );
 };
 
-export default UniversitySignIn;
+export default UniversitySignUpRahil;

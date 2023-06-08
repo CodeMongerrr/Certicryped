@@ -27,14 +27,6 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale(1.05)",
     },
   },
-  heading: {
-    marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)",
-    fontFamily: "Arial",
-    fontSize: "28px",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-  },
 }));
 
 const UniversitySignInRahil = ({ connect }) => {
