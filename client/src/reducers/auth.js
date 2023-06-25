@@ -16,7 +16,7 @@ const authReducer = (state = { UniversityAuthData: null, OwnerAuthData: null }, 
       return { ...state, OwnerAuthData: action?.data };
     case "LOGOUT":
       localStorage.clear();
-      return { ...state, authData: null };
+      return { ...state, UniversityAuthData: null, OwnerAuthData: null };
     default:
       return state;
   }

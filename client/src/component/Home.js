@@ -1,22 +1,28 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, IconButton } from "@material-ui/core";
-import img from "../images/bgimg.jpg";
 import { useNavigate } from "react-router-dom";
 import { AccountCircle } from "@material-ui/icons";
 import Typewriter from "react-typewriter-effect";
 import Typed from "react-typed";
+import bgvideo from "../images/AjarJaggedClumber.mp4";
 
 const useStyles = makeStyles((theme) => ({
   homeBody: {
-    backgroundImage: `url(${img})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
+    position: "relative",
     height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  videoBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    zIndex: -1,
   },
   contentContainer: {
     display: "flex",
@@ -83,11 +89,18 @@ export default function Home() {
 
   return (
     <Box className={classes.homeBody}>
+      <video className={classes.videoBackground} autoPlay loop muted>
+        <source src={bgvideo} type="video/mp4" />
+      </video>
       <div className={classes.contentContainer}>
         <div className={classes.leftContent}>
           <Typography className={classes.homeText} variant="h1">
             <Typed
-              strings={["Welcome to My Website", "Discover Amazing Features", "Get Started Today"]}
+              strings={[
+                "Welcome to My Website",
+                "Discover Amazing Features",
+                "Get Started Today"
+              ]}
               typeSpeed={60}
               backSpeed={30}
               loop

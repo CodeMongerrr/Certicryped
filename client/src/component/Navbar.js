@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Container, Toolbar, Typography } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -22,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
   Toolbar: {
     display: "flex",
   },
-  C1:{
+  C1: {
     flex: "1",
   },
-  C2:{
+  C2: {
     flex: "3",
     display: "flex",
     flexDirection: "row",
@@ -36,6 +38,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    // Implement your logout logic here
+    // For example, you can clear the user session or perform any other necessary actions
+    dispatch({ type: "LOGOUT", data: null });
+    window.location.reload();
+  };
+
+  const ownerProfile = localStorage.getItem("OwnerProfile");
+  const universityProfile = localStorage.getItem("Universityprofile");
 
   return (
     <>
@@ -53,27 +65,38 @@ export default function Navbar() {
             </Link>
           </Container>
           <Container className={classes.C2}>
-            <div className={classes.navLink}>
-              <Link to="/owner" className={classes.navLinkText}>
-                <Typography variant="h6" component="h5">
-                  Owner Login
-                </Typography>
-              </Link>
-            </div>
-            <div className={classes.navLink}>
-              <Link to="/university" className={classes.navLinkText}>
-                <Typography variant="h6" component="h5">
-                  University
-                </Typography>
-              </Link>
-            </div>
-            <div className={classes.navLink}>
-              <Link to="/" className={classes.navLinkText}>
-                <Typography variant="h6" component="h5">
-                  Certificate Holder Login
-                </Typography>
-              </Link>
-            </div>
+            {!ownerProfile && !universityProfile && (
+              <>
+                <div className={classes.navLink}>
+                  <Link to="/owner" className={classes.navLinkText}>
+                    <Typography variant="h6" component="h5">
+                      Owner Login
+                    </Typography>
+                  </Link>
+                </div>
+                <div className={classes.navLink}>
+                  <Link to="/university" className={classes.navLinkText}>
+                    <Typography variant="h6" component="h5">
+                      University
+                    </Typography>
+                  </Link>
+                </div>
+                <div className={classes.navLink}>
+                  <Link to="/" className={classes.navLinkText}>
+                    <Typography variant="h6" component="h5">
+                      Certificate Holder Login
+                    </Typography>
+                  </Link>
+                </div>
+              </>
+            )}
+            {(ownerProfile || universityProfile) && (
+              <div className={classes.navLink}>
+                <Button color="inherit" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </div>
+            )}
           </Container>
         </Toolbar>
       </AppBar>

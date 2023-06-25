@@ -1,5 +1,5 @@
-// import bcrypt from "bcryptjs";
-// import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import user from "../models/user.js";
 
 export const signup = async (req, res) => {
@@ -18,25 +18,29 @@ export const signup = async (req, res) => {
     const existingUser = await user.findOne({ UniversityEmail });
     if (existingUser) return res.status(201).json({ message: "User already exists" });
     // if(UniversityPassword)
+    if (UniversityPassword !== UniversityConfirmPassword) return res.status(404).json({ message: "Passwords dont match" });
+
+    const hashedPassoword = await bcrypt.hash(UniversityPassword, 12);
+
 
     console.log("before result");
     const result = await user.create({
       isApproved: false,
       UniversityName,
       UniversityEmail,
-      UniversityPassword,
+      UniversityPassword: hashedPassoword,
       Branch,
       UniversityPublicKey,
       BranchPublicKey,
     });
 
-    // const token = jwt.sign({ email: result.email, id: result._id }, "test", {
-    //   expiresIn: "1h",
-    // });
+    const token = jwt.sign({ email: result.UniversityEmail, id: result._id }, "test", {
+      expiresIn: "1h",
+    });
 
     // res.status(200).json({ result, token });
     // console.log(result);
-    res.status(200).json({ result });
+    res.status(200).json({ result, token });
   } catch (error) {
     res.status(500).json({ message: "something went wrong" });
   }
@@ -51,12 +55,16 @@ export const signin = async (req, res) => {
     console.log(UniversityEmail);
     const existingUser = await user.findOne({ UniversityEmail });
     if (!existingUser) return res.status(201).json({ message: "User Doesn't exists" });
+    const isPasswordCorrect = await bcrypt.compare(UniversityPassword, existingUser.UniversityPassword);
+
+    if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid Credentials' });
+
+    const token = jwt.sign({ email: existingUser.UniversityEmail, id: existingUser._id }, 'test', { expiresIn: "1h" });
+
     
-    if(UniversityPassword != existingUser.UniversityPassword) return res.status(201).json({ message: "Password Doesnt match" });
 
 
-
-    res.status(200).json({ result : existingUser });
+    res.status(200).json({ result: existingUser, token });
   } catch (error) {
     res.status(500).json({ message: "something went wrong" });
   }
