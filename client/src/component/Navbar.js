@@ -1,47 +1,77 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Container, Toolbar, Typography } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  Button,
+} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: "black",
+    boxShadow: "none",
   },
   navbarBrand: {
     textDecoration: "none",
+    color: "#fff",
     marginRight: theme.spacing(4),
+    fontWeight: "bold",
+    "&:hover": {
+      color: "#ff9800",
+    },
   },
   navLink: {
     marginRight: theme.spacing(4),
-    marginTop: theme.spacing(1),
+    "&:last-child": {
+      marginRight: 0,
+    },
   },
   navLinkText: {
-    color: "white",
+    color: "#fff",
+    // border: "1px solid white",
     fontSize: "1.2rem",
+    textDecoration: "none",
+    "&:hover": {
+      color: "#ff9800",
+    },
   },
-  Toolbar: {
+  toolbar:{
     display: "flex",
+    justifyContent: "center",
   },
-  C1: {
+  leftSection: {
+    // border: "1px solid white",
+
+    display: "flex",
     flex: "1",
+    alignItems: "center",
   },
-  C2: {
+  rightSection: {
+    // border: "1px solid white",
     flex: "3",
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "right",
-    marginRight: "-60px",
-  }
+    alignItems: "center",
+  },
+  logoutButton: {
+    color: "#fff",
+    fontSize: "1rem",
+    textTransform: "none",
+    fontWeight: "bold",
+    "&:hover": {
+      color: "#ff9800",
+    },
+  },
 }));
 
 export default function Navbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const handleLogout = () => {
-    // Implement your logout logic here
-    // For example, you can clear the user session or perform any other necessary actions
     dispatch({ type: "LOGOUT", data: null });
     window.location.reload();
   };
@@ -52,53 +82,62 @@ export default function Navbar() {
   return (
     <>
       <AppBar position="static" className={classes.appBar}>
-        <Toolbar className={classes.Toolbar}>
-          <Container className={classes.C1}>
-            <Link to="/" className={classes.navbarBrand}>
+        <Container>
+          <Toolbar className={classes.toolbar}>
+            <div className={classes.leftSection}>
               <Typography
                 variant="h5"
-                component="h3"
-                style={{ color: "goldenrod" }}
+                component={Link}
+                to="/"
+                className={classes.navbarBrand}
               >
                 Certicryp
               </Typography>
-            </Link>
-          </Container>
-          <Container className={classes.C2}>
-            {!ownerProfile && !universityProfile && (
-              <>
-                <div className={classes.navLink}>
-                  <Link to="/owner" className={classes.navLinkText}>
-                    <Typography variant="h6" component="h5">
+            </div>
+
+            <div className={classes.rightSection}>
+              {!ownerProfile && !universityProfile ? (
+                <>
+                  <Link to="/owner" className={classes.navLink}>
+                    <Typography
+                      variant="h6"
+                      component="span"
+                      className={classes.navLinkText}
+                    >
                       Owner Login
                     </Typography>
                   </Link>
-                </div>
-                <div className={classes.navLink}>
-                  <Link to="/university" className={classes.navLinkText}>
-                    <Typography variant="h6" component="h5">
+                  <Link to="/university" className={classes.navLink}>
+                    <Typography
+                      variant="h6"
+                      component="span"
+                      className={classes.navLinkText}
+                    >
                       University
                     </Typography>
                   </Link>
-                </div>
-                <div className={classes.navLink}>
-                  <Link to="/" className={classes.navLinkText}>
-                    <Typography variant="h6" component="h5">
+                  <Link to="/" className={classes.navLink}>
+                    <Typography
+                      variant="h6"
+                      component="span"
+                      className={classes.navLinkText}
+                    >
                       Certificate Holder Login
                     </Typography>
                   </Link>
-                </div>
-              </>
-            )}
-            {(ownerProfile || universityProfile) && (
-              <div className={classes.navLink}>
-                <Button color="inherit" onClick={handleLogout}>
+                </>
+              ) : (
+                <Button
+                  color="inherit"
+                  onClick={handleLogout}
+                  className={classes.logoutButton}
+                >
                   Logout
                 </Button>
-              </div>
-            )}
-          </Container>
-        </Toolbar>
+              )}
+            </div>
+          </Toolbar>
+        </Container>
       </AppBar>
     </>
   );
