@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import GetApi from "./component/GetApi";
 import UniversityAuth from "./component/University/UniversityAuth";
 import University from "./component/University/University";
-
+import Grantee from "./component/Grantee/Grantee";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
@@ -636,7 +636,7 @@ function App() {
       "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
     );
     return output.data.Hash;
-  }
+  };
 
   const retrieve = async () => {
     const url = await certificate.methods
@@ -667,7 +667,7 @@ function App() {
     program: "Blockchain",
     position: "Developer",
   };
-  
+
   const mintCertificate = async (holder_key, MetaData) => {
     if (
       MetaData !== { name: "", program: "", holder_key: "" } &&
@@ -685,7 +685,6 @@ function App() {
             setTokenid(tokenid + 1);
           });
         console.log(URI);
-
       } catch (error) {
         alert("Use the correct account");
       }
@@ -701,7 +700,6 @@ function App() {
     });
     const account = accounts[0];
     const signature = await signMessage(message, account);
-    console.log(signature);
     const counter_account = await web3.eth.personal.ecRecover(
       message,
       signature
@@ -710,17 +708,10 @@ function App() {
       public_key: counter_account,
     };
     console.log(counter_account);
-    const response = await fetch("/api/account_exists", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(response);
     if (account.toLowerCase() === counter_account) {
       setifUniLogin(true);
     }
+    return account;
   };
   const approve = async (university_pub_key) => {
     await certificate.methods
@@ -754,27 +745,21 @@ function App() {
             path="/owner"
             element={<Owner approve={approve} revoke={revoke} />}
           ></Route>
-          {/* {ifUniLogin ? (
-            <Route
-              path="/university"
-              element={<UniversityPortal mint_certificate={mint_certificate} />}
-              element={<UniversityPortalRahil  mintCertificate={mintCertificate} uploadFile={uploadFile} />}
-
-            ></Route>
-          ) : (
-            <Route
-              path="/university"
-              element={
-                <UniversitySignUp connect={connect} signMessage={signMessage} />
-                <UniversityAuth/>
-              }
-            ></Route>
-          )} */}
-          <Route path="/university" element={<University uploadFile={uploadFile} mintCertificate={mintCertificate} connect={connect} signMessage={signMessage}/>}></Route>
-          {/* me ye just upper wale line of code se university portal bna rha hu, as disussed on the call, (jo abhi comment out hai), and  uncommented /university route hai, vo scrap kr dunga  */}
+          <Route
+            path="/university"
+            element={
+              <University
+                uploadFile={uploadFile}
+                mintCertificate={mintCertificate}
+                connect={connect}
+                signMessage={signMessage}
+              />
+            }
+          ></Route>
+          <Route path="/grantee" element={<Grantee connect={connect} />}>
+          </Route>
         </Routes>
       </Router>
-      {/* <GetApi getApiKey={getApiKey} uploadFile={uploadFile} /> */}
     </div>
   );
 }

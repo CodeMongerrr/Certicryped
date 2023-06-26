@@ -56,3 +56,7 @@ export const OwnerSignIn = (formData) => {
     console.log("chlaa chlaaa chlaaaaa chlaaaaaaaa");
     return API.post('/OwnerUser/OwnerSignIn', formData);
 };
+export const GranteeSignIn = (formData) => {
+    console.log("chlaa chlaaa chlaaaaa chlaaaaaaaa");
+    return API.post('/OwnerUser/GranteeSignIn', formData);
+};

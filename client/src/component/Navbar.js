@@ -116,7 +116,7 @@ export default function Navbar() {
                       University
                     </Typography>
                   </Link>
-                  <Link to="/" className={classes.navLink}>
+                  <Link to="/grantee" className={classes.navLink}>
                     <Typography
                       variant="h6"
                       component="span"

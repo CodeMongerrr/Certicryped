@@ -48,12 +48,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   homeText: {
-    color: theme.palette.primary.main,
-    fontSize: "3rem",
-    fontWeight: "bold",
+    color: "#FFFFFF",
+    fontSize: "5rem",
+    fontWeight: 900,
     margin: theme.spacing(2),
-    textAlign: "center",
+    top: "400px",
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
+    fontFamily: "Roboto",
   },
   button: {
     margin: theme.spacing(2),
@@ -87,6 +88,10 @@ export default function Home() {
     navigate("./university");
   };
 
+  const handleGranteeClick = () => {
+    navigate("./grantee");
+  };
+
   return (
     <Box className={classes.homeBody}>
       <video className={classes.videoBackground} autoPlay loop muted>
@@ -97,13 +102,21 @@ export default function Home() {
           <Typography className={classes.homeText} variant="h1">
             <Typed
               strings={[
-                "Welcome to My Website",
+                "Typography",
                 "Discover Amazing Features",
-                "Get Started Today"
+                "Get Started Today",
               ]}
               typeSpeed={60}
               backSpeed={30}
               loop
+              cursorRenderer={(cursor) => (
+                <span style={{ color: "#FFFFFF" }}>{cursor}</span>
+              )}
+              // Add any desired options for the Typed component
+              // For example:
+              // loopCount={5} // Number of times to loop through the strings
+              // typedRef={(typed) => { this.typed = typed; }} // Reference to the Typed instance
+              // onComplete={() => { console.log('Typed animation complete'); }} // Callback when animation completes
             />
           </Typography>
         </div>
@@ -117,7 +130,9 @@ export default function Home() {
               >
                 <AccountCircle fontSize="large" />
               </IconButton>
-              <Typography className={classes.buttonText}>Owner Login</Typography>
+              <Typography className={classes.buttonText}>
+                Owner Login
+              </Typography>
             </div>
             <div className={classes.divButton}>
               <IconButton
@@ -127,11 +142,14 @@ export default function Home() {
               >
                 <AccountCircle fontSize="large" />
               </IconButton>
-              <Typography className={classes.buttonText}>University Login</Typography>
+              <Typography className={classes.buttonText}>
+                University Login
+              </Typography>
             </div>
             <div className={classes.divButton}>
               <IconButton
                 className={classes.button}
+                onClick={handleGranteeClick}
                 aria-label="Certificate Holder Login"
               >
                 <AccountCircle fontSize="large" />
