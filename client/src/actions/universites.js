@@ -21,3 +21,7 @@ export const updateUniversity = (updatedUniversity) => async (dispatch) => {
     // console.log(error);
   }
 };
+
+export const revokeUniversity= () => {
+
+};

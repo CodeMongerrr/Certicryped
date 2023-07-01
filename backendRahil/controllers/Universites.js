@@ -3,7 +3,7 @@ import user from "../models/user.js";
 export const getuniversites = async (req, res) => {
   try {
     // console.log('inside the backend');
-    const universities = await user.find({ isApproved: false });
+    const universities = await user.find({ });
     res.status(200).json(universities);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });

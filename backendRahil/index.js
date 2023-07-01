@@ -5,6 +5,7 @@ import cors from "cors";
 import userRoutes from './routes/users.js';
 import OwnerUserRoutes from './routes/OwnerUser.js';
 import universityRoutes from './routes/universities.js';
+import GranteeRoutes from "./routes/Grantee.js";
 
 const PORT = process.env.PORT || 5000;
 
