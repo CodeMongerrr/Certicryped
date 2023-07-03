@@ -1,6 +1,7 @@
 import React from 'react'
 import OwnerPortal from './OwnerPortal';
 import OwnerAuth from './OwnerAuth';
+import OwnerAuthUpdated from './OwnerAuthUpdated';
 
 const Owner = ({approve, revoke}) => {
   const OwnerUser = localStorage.getItem('OwnerProfile');
@@ -8,7 +9,7 @@ const Owner = ({approve, revoke}) => {
   console.log(OwnerUser);
   return (
     <div>
-      {(OwnerUser) ? (<OwnerPortal approve={approve} revoke={revoke}/>) : (<OwnerAuth/>)}
+      {(OwnerUser) ? (<OwnerPortal/>) : (<OwnerAuthUpdated/>)}
     </div>
   )
 }
