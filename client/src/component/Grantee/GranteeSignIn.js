@@ -5,7 +5,7 @@ import { GranteeSignIn } from "../../actions/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import bgvideo from "../../images/AjarJaggedClumber.mp4";
-
+import {Link} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   videoBackground: {
     position: "fixed",
@@ -50,7 +50,7 @@ const GranteeSignin = ({ connect }) => {
         <div className={classes.formContainer}>
           <form onSubmit={handleFormSubmit}>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Link to="/grantee">
+              <Link to="/granteeportal">
                 <Button variant="contained" color="primary" type="submit">
                   Sign In
                 </Button>

@@ -15,6 +15,7 @@ import GetApi from "./component/GetApi";
 import UniversityAuth from "./component/University/UniversityAuth";
 import University from "./component/University/University";
 import Grantee from "./component/Grantee/Grantee";
+import GranteePortal from "./component/Grantee/GranteePortal";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
@@ -65,6 +66,7 @@ function App() {
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
     setAccount(account);
+    console.log(window.web3.eth.getGasPrice());
     const network_id = await web3.eth.net.getId();
     const certificate_abi = [
       {
@@ -173,6 +175,25 @@ function App() {
         type: "event",
       },
       {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "_fromTokenId",
+            type: "uint256",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "_toTokenId",
+            type: "uint256",
+          },
+        ],
+        name: "BatchMetadataUpdate",
+        type: "event",
+      },
+      {
         inputs: [
           {
             internalType: "uint256",
@@ -184,6 +205,19 @@ function App() {
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "_tokenId",
+            type: "uint256",
+          },
+        ],
+        name: "MetadataUpdate",
+        type: "event",
       },
       {
         inputs: [
@@ -230,19 +264,6 @@ function App() {
         type: "function",
       },
       {
-        inputs: [
-          {
-            internalType: "uint256",
-            name: "tokenId",
-            type: "uint256",
-          },
-        ],
-        name: "revoke",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
         anonymous: false,
         inputs: [
           {
@@ -270,6 +291,29 @@ function App() {
           },
         ],
         name: "revokeUniversity",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "to",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "tokenId",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "uri",
+            type: "string",
+          },
+        ],
+        name: "safeMint",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
@@ -369,6 +413,45 @@ function App() {
         type: "event",
       },
       {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "address",
+            name: "university",
+            type: "address",
+          },
+        ],
+        name: "UniversityApproved",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "address",
+            name: "university",
+            type: "address",
+          },
+        ],
+        name: "UniversityRevoked",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "string",
+            name: "tokenuri",
+            type: "string",
+          },
+        ],
+        name: "tokenuri",
+        type: "event",
+      },
+      {
         inputs: [
           {
             internalType: "address",
@@ -405,32 +488,6 @@ function App() {
         type: "function",
       },
       {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: false,
-            internalType: "address",
-            name: "university",
-            type: "address",
-          },
-        ],
-        name: "UniversityApproved",
-        type: "event",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: false,
-            internalType: "address",
-            name: "university",
-            type: "address",
-          },
-        ],
-        name: "UniversityRevoked",
-        type: "event",
-      },
-      {
         inputs: [
           {
             internalType: "address",
@@ -463,6 +520,25 @@ function App() {
             internalType: "uint256",
             name: "",
             type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "owner",
+            type: "address",
+          },
+        ],
+        name: "getAllTokensOfOwner",
+        outputs: [
+          {
+            internalType: "uint256[]",
+            name: "",
+            type: "uint256[]",
           },
         ],
         stateMutability: "view",
@@ -592,6 +668,49 @@ function App() {
         inputs: [
           {
             internalType: "uint256",
+            name: "index",
+            type: "uint256",
+          },
+        ],
+        name: "tokenByIndex",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "owner",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "index",
+            type: "uint256",
+          },
+        ],
+        name: "tokenOfOwnerByIndex",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "uint256",
             name: "tokenId",
             type: "uint256",
           },
@@ -607,8 +726,21 @@ function App() {
         stateMutability: "view",
         type: "function",
       },
+      {
+        inputs: [],
+        name: "totalSupply",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
     ];
-    const certificate_address = "0x56C3EAaaB9CC652cbf7318940a8D776b40284af8";
+    const certificate_address = "0xb9Fff27616649d121a54993b8fE5eDA793ECbe87";
     const certificate = new web3.eth.Contract(
       certificate_abi,
       certificate_address
@@ -674,18 +806,20 @@ function App() {
       holder_key !== 0
     ) {
       console.log("MetaData  =", MetaData);
-      console.log();
       setMetaData(MetaData);
-      const URI = await uploadFile();
+      console.log("CHALALALALALAL");
+      const URI = await uploadFile(MetaData);
       try {
         const result = await certificate.methods
           .mintCertificate(holder_key, URI)
           .send({ from: account })
           .on("transactionHash", function (hash) {
             setTokenid(tokenid + 1);
-          });
-        console.log(URI);
+          })
+          .then();
+        console.log(result);
       } catch (error) {
+        console.log(error);
         alert("Use the correct account");
       }
     } else {
@@ -722,7 +856,35 @@ function App() {
         console.log(hash);
       });
   };
+  const get_ids_of_owner = async (grantee) => {
+    // const result = await certificate.methods
+    //   .getAllTokensOfOwner(grantee)
+    //   .call({ from: account });
+    //   console.log(result);
+    try {
+      // wasAdded is a boolean. Like any RPC method, an error can be thrown.
+      const wasAdded = await window.ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC-721", // Initially only supports ERC-20 tokens, but eventually more!
+          options: {
+            address: "0xb9Fff27616649d121a54993b8fE5eDA793ECbe87", // The address of the token.
+            symbol: "CRTP", // A ticker symbol or shorthand, up to 5 characters.
+            decimals: 18, // The number of decimals in the token.
+            image: "https://ipfs.io/ipfs/QmTY1hduZpuHxNX8tP2HFqtTLvkAPLud2oX6ruVKgL843V?filename=certicryp-logo.png", // A string URL of the token logo.
+          },
+        },
+      });
 
+      if (wasAdded) {
+        console.log("Thanks for your interest!");
+      } else {
+        console.log("Your loss!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const revoke = async (university_pub_key) => {
     await certificate.methods
       .revokeUniversity(university_pub_key)
@@ -753,11 +915,15 @@ function App() {
                 mintCertificate={mintCertificate}
                 connect={connect}
                 signMessage={signMessage}
+                get_ids_of_owner={get_ids_of_owner}
               />
             }
           ></Route>
-          <Route path="/grantee" element={<Grantee connect={connect} />}>
-          </Route>
+          <Route
+            path="/grantee"
+            element={<Grantee connect={connect} />}
+          ></Route>
+          <Route path="/granteeportal" element={<GranteePortal />} />
         </Routes>
       </Router>
     </div>

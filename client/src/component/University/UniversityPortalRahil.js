@@ -71,61 +71,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyComponent = ({ mintCertificate, uploadFile}) => {
+const MyComponent = ({ mintCertificate, uploadFile, get_ids_of_owner }) => {
   const classes = useStyles();
-  const [csvData, setCsvData] = useState([]);
-  const [publickey, setPublickey] = useState("")
+  const [publickey, setPublickey] = useState("");
+  const [grantee, setgrantee] = useState("");
   const [formData, setFormData] = useState({
-    title: "NFT Metadata",
-    type: "object",
-    properties: {
-      name: "",
-      description: "",
-      image: "",
-      createAt: "",
-      DateofIssue: "",
-    },
+    name: "Aditya Roshan Joshi",
+    description: "Blockchain Developer",
+    image:
+      "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+
+    attributes: [
+      {
+        trait_type: "Program",
+        value: "Blockchain",
+      },
+    ],
   });
-
-  const handleCsvFile = (data, fileInfo) => {
-    setCsvData(data);
-  };
-
+  const handlebutton = (e) => {
+    e.preventDefault();
+    get_ids_of_owner(grantee);
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     uploadFile(formData);
     mintCertificate(publickey, formData);
   };
-  
-  useEffect(() => {
-    const getCurrentTime = () => {
-      const currentTime = new Date().toLocaleTimeString();
-      setFormData((prevState) => ({
-        ...prevState,
-        properties: {
-          ...formData.properties,
-          createAt: currentTime,
-        },
-      }));
-    };
-
-    getCurrentTime();
-  }, []);
-
-  formData.properties.UniversityName = "IIT-ISM-Dhanbad";
 
   const handleInputChange = (e, property) => {
-    if(property === "publickey"){
-      console.log("Entered")
-      setPublickey(e.target.value)
-    }
-    setFormData({
-      ...formData,
-      properties: {
-        ...formData.properties,
-        [property]: e.target.value,
-      },
-    });
+    setFormData((prevState) => ({
+      ...prevState,
+      [property]: e.target.value,
+    }));
   };
 
   return (
@@ -135,44 +112,40 @@ const MyComponent = ({ mintCertificate, uploadFile}) => {
           <Typography variant="h5" className={classes.heading}>
             Certificate Details
           </Typography>
-          {/* <CSVReader
-            className={classes.csvReader}
-            onFileLoaded={handleCsvFile}
-            parserOptions={{ header: true, dynamicTyping: true }}
-          /> */}
-          {[
-            { label: "Name", property: "name" },
-            { label: "Description", property: "description" },
-            { label: "Date of Issue", property: "DateofIssue", type: "date" },
-            { label: "Public Key", property: "publickey"}
-          ].map((field) => (
-            <TextField
-              key={field.property}
-              className={classes.input}
-              label={field.label}
-              variant="outlined"
-              fullWidth
-              type={field.type}
-              value={
-                csvData[0]?.[field.property] ||
-                formData.properties[field.property]
-              }
-              onChange={(e) => handleInputChange(e, field.property)}
-            />
-            
-          ))}
-          <div className={classes.fileInput}>
-            <FileBase
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) =>
-                setFormData({
-                  ...formData,
-                  properties: { ...formData.properties, image: base64 },
-                })
-              }
-            />
-          </div>
+          <TextField
+            className={classes.input}
+            label="Name"
+            variant="outlined"
+            fullWidth
+            value={formData.name}
+            onChange={(e) => handleInputChange(e, "name")}
+          />
+          <TextField
+            className={classes.input}
+            label="Description"
+            variant="outlined"
+            fullWidth
+            value={formData.description}
+            onChange={(e) => handleInputChange(e, "description")}
+          />
+          <TextField
+            className={classes.input}
+            label="Image URL"
+            variant="outlined"
+            fullWidth
+            value={formData.image}
+            onChange={(e) => handleInputChange(e, "image")}
+          />
+          <TextField
+            className={classes.input}
+            label="Public Key"
+            variant="outlined"
+            fullWidth
+            value={publickey}
+            onChange={(e) =>
+              setPublickey(e.target.value)
+            }
+          />
           <Button
             className={classes.submitButton}
             variant="contained"
@@ -183,6 +156,15 @@ const MyComponent = ({ mintCertificate, uploadFile}) => {
           </Button>
         </form>
       </Container>
+      <form onSubmit={handlebutton}>
+      <input
+        type="text"
+        name="inputField"
+        value={grantee}
+        onChange={(e) => setgrantee(e.target.value)}
+      />
+      <button type="submit">Submit</button>
+    </form>
     </Box>
   );
 };

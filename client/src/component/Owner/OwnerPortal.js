@@ -108,6 +108,7 @@ export default function Owner({ approve, revoke }) {
     await window.ethereum.request({
       method: "eth_requestAccounts",
     });
+    console.log("LODU")
     approve(pub_key);
   };
 
