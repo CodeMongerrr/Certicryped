@@ -94,9 +94,7 @@ export default function Home() {
 
   return (
     <Box className={classes.homeBody}>
-      <video className={classes.videoBackground} autoPlay loop muted>
-        <source src={bgvideo} type="video/mp4" />
-      </video>
+      
       <div className={classes.contentContainer}>
         <div className={classes.leftContent}>
           <Typography className={classes.homeText} variant="h1">

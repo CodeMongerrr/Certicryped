@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: "black",
     boxShadow: "none",
+    position: "sticky",
+    top: 0,
+    borderRadius: "10px",
   },
   navbarBrand: {
     textDecoration: "none",

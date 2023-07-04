@@ -51,7 +51,7 @@ const GranteeSignin = ({ connect }) => {
         <div className={classes.formContainer}>
           <form onSubmit={handleFormSubmit}>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Link to="/granteeportal">
+              <Link to="/granteeportal" >
                 <Button variant="contained" color="primary" type="submit">
                   Sign In
                 </Button>

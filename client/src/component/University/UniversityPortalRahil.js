@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import CSVReader from "react-csv-reader";
-import img from "../../images/bgimg.jpg";
+import img from "../../images/grey.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {

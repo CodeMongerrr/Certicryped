@@ -16,6 +16,7 @@ import UniversityAuth from "./component/University/UniversityAuth";
 import University from "./component/University/University";
 import Grantee from "./component/Grantee/Grantee";
 import GranteePortal from "./component/Grantee/GranteePortal";
+import { Button } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
@@ -829,10 +830,10 @@ function App() {
   const connect = async (event) => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
     await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    const account = accounts[0];
     const signature = await signMessage(message, account);
     const counter_account = await web3.eth.personal.ecRecover(
       message,
@@ -857,33 +858,27 @@ function App() {
       });
   };
   const get_ids_of_owner = async (grantee) => {
-    // const result = await certificate.methods
-    //   .getAllTokensOfOwner(grantee)
-    //   .call({ from: account });
-    //   console.log(result);
-    try {
-      // wasAdded is a boolean. Like any RPC method, an error can be thrown.
-      const wasAdded = await window.ethereum.request({
-        method: "wallet_watchAsset",
-        params: {
-          type: "ERC-721", // Initially only supports ERC-20 tokens, but eventually more!
-          options: {
-            address: "0xb9Fff27616649d121a54993b8fE5eDA793ECbe87", // The address of the token.
-            symbol: "CRTP", // A ticker symbol or shorthand, up to 5 characters.
-            decimals: 18, // The number of decimals in the token.
-            image: "https://ipfs.io/ipfs/QmTY1hduZpuHxNX8tP2HFqtTLvkAPLud2oX6ruVKgL843V?filename=certicryp-logo.png", // A string URL of the token logo.
-          },
-        },
-      });
-
-      if (wasAdded) {
-        console.log("Thanks for your interest!");
-      } else {
-        console.log("Your loss!");
-      }
-    } catch (error) {
-      console.log(error);
+    console.log("Entered")
+    const result = await certificate.methods
+      .getAllTokensOfOwner(grantee)
+      .call({ from: account });
+    return result;
+  };
+  const getNFTs = async (grantee) => {
+    const tokens = await get_ids_of_owner(grantee);
+    console.log(tokens);
+    const Metadatas = [];
+    console.log("Enter toh hua hai bc")
+    for (let i = 0; i <= tokens.length; i++) {
+      console.log("Enter toh hua hai bc")
+      let metadata = await certificate.methods
+        .tokenURI(tokens[i])
+        .call({ from: account });
+        console.log(metadata);
+      Metadatas.push(metadata);
     }
+    return Metadatas;
+    
   };
   const revoke = async (university_pub_key) => {
     await certificate.methods
@@ -921,9 +916,9 @@ function App() {
           ></Route>
           <Route
             path="/grantee"
-            element={<Grantee connect={connect} />}
+            element={<Grantee connect={connect}/>}
           ></Route>
-          <Route path="/granteeportal" element={<GranteePortal />} />
+          <Route path="/granteeportal" element={<GranteePortal get_ids_of_owner={get_ids_of_owner} getNFTs={getNFTs}/>} />
         </Routes>
       </Router>
     </div>

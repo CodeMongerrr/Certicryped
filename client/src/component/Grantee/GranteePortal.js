@@ -1,48 +1,90 @@
 import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+// import img from "../../images/grey.jpg";
+import {
+  Box,
+  Container,
+  TextField,
+  Button,
+  Typography,
+} from "@material-ui/core";
+import CSVReader from "react-csv-reader";
 
-const GranteePortal = () => {
-  const [data, setData] = useState([]);
-  let a = [
-    {
-      name: "John Doe",
-      age: 25,
-      city: "New York",
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "grey", // Update the background color to grey
+    // backgroundImage: `url(${img})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: theme.spacing(4),
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    borderRadius: theme.spacing(2),
+  },
+  input: {
+    marginBottom: theme.spacing(2),
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "rgba(256, 256, 256, 0.6)",
+      },
+      "&:hover fieldset": {
+        borderColor: "rgba(256, 256, 256, 0.6)",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "rgba(256, 256, 256, 0.6)",
+      },
+      "& input": {
+        color: "rgba(256, 256, 256, 0.9)", // Set the input text color to white
+      },
     },
-    {
-      name: "Jane Smith",
-      age: 30,
-      city: "London",
+    "& .MuiInputLabel-root": {
+      color: "rgba(256, 256, 256, 0.9)",
     },
-    {
-      name: "Bob Johnson",
-      age: 35,
-      city: "Paris",
-    },
-  ]
-  setData(a);
+  },
+  submitButton: {
+    marginTop: theme.spacing(3),
+  },
+  csvReader: {
+    marginBottom: theme.spacing(3),
+    color: "rgba(256, 256, 256, 0.9)",
+  },
+  heading: {
+    marginBottom: theme.spacing(3),
+    color: "rgba(256, 256, 256, 0.9)",
+    fontFamily: "Arial",
+    fontSize: "28px",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  fileInput: {
+    marginBottom: theme.spacing(3),
+    color: "rgba(256, 256, 256, 0.9)",
+  },
+}));
 
-//   useEffect(() => {
-//     // Fetch the JSON data and set it to the 'data' state
-//     fetch("data.json")
-//       .then((response) => response.json())
-//       .then((jsonData) => setData(jsonData))
-//       .catch((error) => console.error("Error fetching JSON data:", error));
-//   }, []);
-
+const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
+  const classes = useStyles();
+  const [grantee, setgrantee] = useState("");
+  const nftdata = [];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    getNFTs(grantee);
+  };
+  
   return (
-    <div>
-      <h1>Grantee Portal</h1>
-      <ul>
-        {data.map((row, index) => (
-          <li key={index}>
-            <p>Sr No: {index + 1}</p>
-            <p>Field 1: {row.field1}</p>
-            <p>Field 2: {row.field2}</p>
-            <p>Field 3: {row.field3}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Box className={classes.root}>
+        <input type="text" value={grantee} onChange={(e) => setgrantee(e.target.value)} />
+        <button onClick={handleSubmit}>Submit</button>
+    </Box>
   );
 };
 
