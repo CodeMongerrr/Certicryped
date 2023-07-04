@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import img from "../../images/bgimg.jpg";
 import { getuniversites, updateUniversity, revokeUniversity } from "../../actions/universites";
 import { useDispatch, useSelector } from "react-redux";
+import { approve } from "../../functions";
 
 const useStyles = makeStyles((theme) => ({
   ownerBody: {
@@ -81,6 +82,8 @@ export default function Owner() {
         ...university,
         isApproved: true,
       };
+      approve(university.UniversityPublicKey)
+      console.log(university);
       await dispatch(updateUniversity(updatedUniversity));
     }
     await dispatch(getuniversites());
