@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    marginTop:"10px",
     marginLeft: "50px",
     marginRight: "50px",
     backgroundColor: "black",
@@ -20,9 +19,11 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: 0,
     borderRadius: "10px",
+    
   },
   navbarBrand: {
     textDecoration: "none",
+    maxWidth: "1000",
     color: "#fff",
     marginRight: theme.spacing(4),
     fontWeight: "bold",
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar:{
     display: "flex",
     justifyContent: "center",
+    
   },
   leftSection: {
     // border: "1px solid white",

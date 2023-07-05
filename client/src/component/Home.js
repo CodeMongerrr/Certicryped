@@ -2,14 +2,21 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, IconButton } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import { AccountCircle } from "@material-ui/icons";
 import Typewriter from "react-typewriter-effect";
 import Typed from "react-typed";
+import img from "../images/design.jpg";
 import bgvideo from "../images/AjarJaggedClumber.mp4";
+import ownerImage from "../images/ownner.png";
+import universityImage from "../images/university.png";
+import certificateHolderImage from "../images/grantee.png";
 
 const useStyles = makeStyles((theme) => ({
   homeBody: {
     position: "relative",
+    backgroundImage: `url(${img})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -31,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
   leftContent: {
     flex: 3,
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
     padding: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
@@ -40,9 +46,14 @@ const useStyles = makeStyles((theme) => ({
   },
   rightContent: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
     padding: theme.spacing(4),
+    backgroundColor: "black",
     display: "flex",
+    margin: "20px",
+    marginRight: "80px",
+    opacity: "80%",
+    maxWidth: "400px",
+    borderRadius: "40px",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -74,6 +85,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: theme.spacing(4),
   },
+  image: {
+    width: "80px",
+    height: "80px",
+  },
 }));
 
 export default function Home() {
@@ -95,14 +110,13 @@ export default function Home() {
   return (
     <Box className={classes.homeBody}>
       
-      <div className={classes.contentContainer}>
         <div className={classes.leftContent}>
           <Typography className={classes.homeText} variant="h1">
             <Typed
               strings={[
-                "Typography",
-                "Discover Amazing Features",
-                "Get Started Today",
+                "NFT Powered Credentials",
+                "Decentralized Certificates",
+                "Blockchain Accredition",
               ]}
               typeSpeed={60}
               backSpeed={30}
@@ -118,46 +132,51 @@ export default function Home() {
             />
           </Typography>
         </div>
-        <div className={classes.rightContent}>
-          <Box>
-            <div className={classes.divButton}>
-              <IconButton
-                className={classes.button}
-                onClick={handleOwnerClick}
-                aria-label="Owner Login"
-              >
-                <AccountCircle fontSize="large" />
-              </IconButton>
-              <Typography className={classes.buttonText}>
-                Owner Login
-              </Typography>
-            </div>
-            <div className={classes.divButton}>
-              <IconButton
-                className={classes.button}
-                onClick={handleUniversityClick}
-                aria-label="University Login"
-              >
-                <AccountCircle fontSize="large" />
-              </IconButton>
-              <Typography className={classes.buttonText}>
-                University Login
-              </Typography>
-            </div>
-            <div className={classes.divButton}>
-              <IconButton
-                className={classes.button}
-                onClick={handleGranteeClick}
-                aria-label="Certificate Holder Login"
-              >
-                <AccountCircle fontSize="large" />
-              </IconButton>
-              <Typography className={classes.buttonText}>
-                Certificate Holder Login
-              </Typography>
-            </div>
-          </Box>
-        </div>
+      <div className={classes.rightContent}>
+        <Box>
+          <div className={classes.divButton}>
+            <IconButton
+              className={classes.button}
+              onClick={handleOwnerClick}
+              aria-label="Owner Login"
+            >
+              <img src={ownerImage} alt="Owner" className={classes.image} />
+            </IconButton>
+            <Typography className={classes.buttonText}>Owner Login</Typography>
+          </div>
+          <div className={classes.divButton}>
+            <IconButton
+              className={classes.button}
+              onClick={handleUniversityClick}
+              aria-label="University Login"
+            >
+              <img
+                src={universityImage}
+                alt="University"
+                className={classes.image}
+              />
+            </IconButton>
+            <Typography className={classes.buttonText}>
+              University Login
+            </Typography>
+          </div>
+          <div className={classes.divButton}>
+            <IconButton
+              className={classes.button}
+              onClick={handleGranteeClick}
+              aria-label="Certificate Holder Login"
+            >
+              <img
+                src={certificateHolderImage}
+                alt="Certificate Holder"
+                className={classes.image}
+              />
+            </IconButton>
+            <Typography className={classes.buttonText}>
+              Certificate Holder Login
+            </Typography>
+          </div>
+        </Box>
       </div>
     </Box>
   );
