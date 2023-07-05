@@ -8,7 +8,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import University from "./component/University/University";
 import Grantee from "./component/Grantee/Grantee";
 import GranteePortal from "./component/Grantee/GranteePortal";
-import { loadWeb3, signMessage, loadContract, uploadFile, mintCertificate, connect, approve, get_ids_of_owner, getNFTs, revoke } from './functions';
+import {
+  loadWeb3,
+  signMessage,
+  loadAccount,
+  loadContract,
+  uploadFile,
+  mintCertificate,
+  connect,
+  approve,
+  get_ids_of_owner,
+  getNFTs,
+  revoke,
+} from "./functions";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
@@ -49,7 +61,16 @@ function App() {
             path="/grantee"
             element={<Grantee connect={connect} />}
           ></Route>
-          <Route path="/granteeportal" element={<GranteePortal get_ids_of_owner={get_ids_of_owner} getNFTs={getNFTs} />} />
+          <Route
+            path="/granteeportal"
+            element={
+              <GranteePortal
+                get_ids_of_owner={get_ids_of_owner}
+                getNFTs={getNFTs}
+                loadAccount={loadAccount}
+              />
+            }
+          />
         </Routes>
       </Router>
     </div>

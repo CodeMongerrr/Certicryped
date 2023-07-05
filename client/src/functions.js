@@ -30,11 +30,12 @@ export const loadWeb3 = async () => {
     window.alert("Non Ethereum browser detected");
   }
 };
-const loadAccount = async () => {
+export const loadAccount = async () => {
   const web3 = window.web3;
   const accounts = await web3.eth.getAccounts();
   const acc = accounts[0];
   account = acc;
+  return account;
 };
 export const signMessage = async (api_msg) => {
   const web3 = window.web3;
@@ -861,7 +862,7 @@ export const getNFTs = async (grantee) => {
     console.log(tokens);
   }
 
-  console.log(Metadatas);
+  return Metadatas;
 };
 export const revoke = async (university_pub_key) => {
   await certificate.methods
