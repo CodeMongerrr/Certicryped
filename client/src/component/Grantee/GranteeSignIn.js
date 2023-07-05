@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 const GranteeSignin = ({ connect }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const account = connect();

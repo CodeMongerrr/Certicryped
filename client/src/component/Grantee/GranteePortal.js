@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     minHeight: "100vh",
-    // overflowX: "hidden",
-    // overflowY:"",
+    overflowX: "hidden",
+    overflowY:"",
     // Add transition effect for the blur change
   },
   contentContainer: {
@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     width: "auto",
     objectFit: "contain",
+    marginLeft: "20px"
   },
   poppedOutContainer: {
     position: "fixed",
@@ -80,11 +81,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
+const GranteePortal = ({ getNFTs, get_ids_of_owner , loadAccount}) => {
   const classes = useStyles();
   const [isCardClicked, setCardClicked] = useState(false); // State variable to track whether a card is clicked
   const [selectedCardIndex, setSelectedCardIndex] = useState(-1); // State variable to store the index of the selected card
-
   const handleCardClick = (index) => {
     setCardClicked(true);
     setSelectedCardIndex(index);
@@ -95,6 +95,9 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
     setSelectedCardIndex(-1);
   };
 
+  // const handle = async() => {
+     
+  // }
   const nftData = [
 
     {
@@ -154,8 +157,7 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
       ],
     },
 
-  ];
-
+  ]; 
   return (
     <div>
       <Box className={`${classes.root}`} >

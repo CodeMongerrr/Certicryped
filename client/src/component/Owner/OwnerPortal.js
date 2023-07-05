@@ -9,7 +9,7 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import img from "../../images/bgimg.jpg";
+import img from "../../images/design.jpg";
 import { getuniversites, updateUniversity, revokeUniversity } from "../../actions/universites";
 import { useDispatch, useSelector } from "react-redux";
 import { approve } from "../../functions";

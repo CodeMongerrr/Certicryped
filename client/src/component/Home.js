@@ -19,6 +19,10 @@ import Typed from "react-typed";
 const useStyles = makeStyles((theme) => ({
   homeBody: {
     position: "relative",
+    backgroundImage: `url(${img})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
     height: "100vh",
     display: "flex",
     flexDirection: "column",
@@ -33,8 +37,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(4),
+  },
+  rightContent: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    padding: theme.spacing(4),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   homeText: {
     color: "#FFFFFF",
@@ -91,6 +102,10 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     margin: theme.spacing(2), // Added margin
   },
+  image: {
+    width: "80px",
+    height: "80px",
+  },
 }));
 
 export default function Home() {
@@ -125,9 +140,9 @@ export default function Home() {
           <Typography className={classes.homeText} variant="h1">
             <Typed
               strings={[
-                "Typography",
-                "Discover Amazing Features",
-                "Get Started Today",
+                "NFT Powered Credentials",
+                "Decentralized Certificates",
+                "Blockchain Accredition",
               ]}
               typeSpeed={60}
               backSpeed={30}

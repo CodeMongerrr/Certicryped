@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navbarBrand: {
     textDecoration: "none",
+    maxWidth: "1000",
     color: "#fff",
     marginRight: theme.spacing(4),
     fontWeight: "bold",
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar:{
     display: "flex",
     justifyContent: "center",
+    
   },
   leftSection: {
     // border: "1px solid white",
