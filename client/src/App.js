@@ -9,10 +9,11 @@ import University from "./component/University/University";
 import Grantee from "./component/Grantee/Grantee";
 import GranteePortal from "./component/Grantee/GranteePortal";
 import { loadWeb3, signMessage, loadContract, uploadFile, mintCertificate, connect, approve, get_ids_of_owner, getNFTs, revoke } from './functions';
+import Login from "./component/Login";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
-    width: "100vw",
+    width: "100%",
   },
 }));
 function App() {
@@ -29,6 +30,7 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login/>}></Route>
           <Route
             path="/owner"
             element={<Owner approve={approve} revoke={revoke} />}

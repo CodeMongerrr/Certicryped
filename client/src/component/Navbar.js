@@ -12,14 +12,18 @@ import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    marginTop:"10px",
-    marginLeft: "50px",
-    marginRight: "50px",
+    // marginTop:"10px",
+    // marginLeft: "50px",
+    // marginRight: "50px",
     backgroundColor: "black",
+    // backgroundColor: "linear-gradient(to right, #654ea3, #eaafc8)",
     boxShadow: "none",
     position: "sticky",
     top: 0,
+    // border:"1px solid white",
     borderRadius: "10px",
+    width: "100%",
+
   },
   navbarBrand: {
     textDecoration: "none",

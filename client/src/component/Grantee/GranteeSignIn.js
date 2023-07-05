@@ -8,15 +8,6 @@ import bgvideo from "../../images/AjarJaggedClumber.mp4";
 import { Link } from "react-router-dom";
 import { connect } from "../../functions";
 const useStyles = makeStyles((theme) => ({
-  videoBackground: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    zIndex: -1,
-  },
   container: {
     display: "flex",
     justifyContent: "center",
@@ -43,9 +34,6 @@ const GranteeSignin = ({ connect }) => {
 
   return (
     <div>
-      <video className={classes.videoBackground} autoPlay loop muted>
-        <source src={bgvideo} type="video/mp4" />
-      </video>
       <Container maxWidth="sm" className={classes.container}>
         <div className={classes.formContainer}>
           <form onSubmit={handleFormSubmit}>
