@@ -1,61 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import img from "../../images/grey.jpg";
 import {
   Box,
   Container,
-  TextField,
-  Button,
   Typography,
+  Card,
+  CardContent,
+  CardMedia,
 } from "@material-ui/core";
-import CSVReader from "react-csv-reader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "grey", // Update the background color to grey
-    // backgroundImage: `url(${img})`,
+    backgroundColor: "black",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: theme.spacing(4),
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    borderRadius: theme.spacing(2),
-  },
-  input: {
-    marginBottom: theme.spacing(2),
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "rgba(256, 256, 256, 0.6)",
-      },
-      "&:hover fieldset": {
-        borderColor: "rgba(256, 256, 256, 0.6)",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "rgba(256, 256, 256, 0.6)",
-      },
-      "& input": {
-        color: "rgba(256, 256, 256, 0.9)", // Set the input text color to white
-      },
-    },
-    "& .MuiInputLabel-root": {
-      color: "rgba(256, 256, 256, 0.9)",
-    },
-  },
-  submitButton: {
-    marginTop: theme.spacing(3),
-  },
-  csvReader: {
-    marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)",
+    minHeight: "100vh",
   },
   heading: {
     marginBottom: theme.spacing(3),
@@ -65,26 +28,122 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     textTransform: "uppercase",
   },
-  fileInput: {
-    marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)",
+  cardContainer: {
+    display: "flex",
+    flexDirection: "column",
+    // flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  card: {
+    backgroundColor: "grey",
+    height: "100px",
+    display: "flex",
+    width: "90%",
+    marginBottom: theme.spacing(2),
+    boxShadow: "0px 4px 10px rgba(1, 1, 1, 1)", // Add shadow to the card
+
+  },
+  cardMedia: {
+    height: "100%",
+    width: "auto",
+    objectFit: "contain",
   },
 }));
 
 const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
   const classes = useStyles();
-  const [grantee, setgrantee] = useState("");
-  const nftdata = [];
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    getNFTs(grantee);
-  };
+  const [nftData] = useState([
+    
+    {
+      name: "Aditya Roshan Joshi",
+      description: "Blockchain Developer",
+      image:
+        "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+      attributes: [
+        {
+          trait_type: "Program",
+          value: "Blockchain",
+        },
+      ],
+    },
+    {
+      name: "Emily Thompson",
+      description: "Frontend Developer",
+      image: "https://example.com/emily.png",
+      attributes: [
+        {
+          trait_type: "Program",
+          value: "JavaScript",
+        },
+      ],
+    },
+    {
+      name: "Michael Rodriguez",
+      description: "Data Scientist",
+      image: "https://example.com/michael.png",
+      attributes: [
+        {
+          trait_type: "Program",
+          value: "Python",
+        },
+      ],
+    },
+    {
+      name: "Sophia Chen",
+      description: "UX Designer",
+      image: "https://example.com/sophia.png",
+      attributes: [
+        {
+          trait_type: "Program",
+          value: "Figma",
+        },
+      ],
+    },
+    {
+      name: "Robert Johnson",
+      description: "Backend Developer",
+      image: "https://example.com/robert.png",
+      attributes: [
+        {
+          trait_type: "Program",
+          value: "Java",
+        },
+      ],
+    },
   
+  ]);
+
+  console.log(nftData);
   return (
-    <Box className={classes.root}>
-        <input type="text" value={grantee} onChange={(e) => setgrantee(e.target.value)} />
-        <button onClick={handleSubmit}>Submit</button>
-    </Box>
+    <div>
+      <Box className={classes.root}>
+        <Container maxWidth="md">
+          <Typography variant="h4" className={classes.heading}>
+            NFT Data
+          </Typography>
+          <Box className={classes.cardContainer}>
+            {nftData.map((nft, index) => (
+              <Card key={index} className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  component="img"
+                  src={nft.image}
+                />
+                <CardContent>
+                  <Typography variant="h6">{nft.name}</Typography>
+                  <Typography variant="body2">{nft.description}</Typography>
+                  {nft.attributes.map((attribute, index) => (
+                    <Typography key={index} variant="body2">
+                      {attribute.trait_type}: {attribute.value}
+                    </Typography>
+                  ))}
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
+        </Container>
+      </Box>
+    </div>
   );
 };
 

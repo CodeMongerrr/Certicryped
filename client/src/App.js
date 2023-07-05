@@ -2,22 +2,13 @@ import "./App.css";
 import Navbar from "./component/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Owner from "./component/Owner/Owner";
-import UniversitySignUp from "./component/University/UniversitySignUp";
-import UniversityPortal from "./component/University/UniversityPortal";
-import Web3 from "web3";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Home from "./component/Home";
-import UniversityPortalRahil from "./component/University/UniversityPortalRahil";
-import lighthouse, { upload } from "@lighthouse-web3/sdk";
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import GetApi from "./component/GetApi";
-import UniversityAuth from "./component/University/UniversityAuth";
 import University from "./component/University/University";
 import Grantee from "./component/Grantee/Grantee";
 import GranteePortal from "./component/Grantee/GranteePortal";
-import { Button } from "@material-ui/core";
-import { loadWeb3, signMessage, loadContract, progressCallback, uploadFile, retrieve, getApiKey, userdata, mintCertificate, connect, approve, get_ids_of_owner, getNFTs, revoke } from './functions';
+import { loadWeb3, signMessage, loadContract, uploadFile, mintCertificate, connect, approve, get_ids_of_owner, getNFTs, revoke } from './functions';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
@@ -26,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 function App() {
   const classes = useStyles();
-  const url = "";
   useEffect(() => {
     loadWeb3();
     loadContract();

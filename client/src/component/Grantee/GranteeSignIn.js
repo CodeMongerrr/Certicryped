@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Container, TextField, Button } from "@material-ui/core";
+import React from "react";
+import { Container,Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { GranteeSignIn } from "../../actions/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import bgvideo from "../../images/AjarJaggedClumber.mp4";
 import { Link } from "react-router-dom";
@@ -33,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
 const GranteeSignin = ({ connect }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const account = null;
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    account = connect();
+    const account = connect();
     dispatch(GranteeSignIn(account, navigate));
   };
 
