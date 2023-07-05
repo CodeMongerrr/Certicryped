@@ -6,7 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import bgvideo from "../../images/AjarJaggedClumber.mp4";
 import { Link } from "react-router-dom";
-
+import { connect } from "../../functions";
 const useStyles = makeStyles((theme) => ({
   videoBackground: {
     position: "fixed",
@@ -36,8 +36,8 @@ const GranteeSignin = ({ connect }) => {
   const account = null;
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    account = connect();
-    dispatch(GranteeSignIn(account, navigate));
+    connect();
+    // dispatch(GranteeSignIn(account, navigate));
   };
 
   const classes = useStyles();

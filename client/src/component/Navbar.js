@@ -12,6 +12,9 @@ import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
+    marginTop:"10px",
+    marginLeft: "50px",
+    marginRight: "50px",
     backgroundColor: "black",
     boxShadow: "none",
     position: "sticky",
