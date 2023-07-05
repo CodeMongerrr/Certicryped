@@ -12,18 +12,12 @@ import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    // marginTop:"10px",
-    // marginLeft: "50px",
-    // marginRight: "50px",
     backgroundColor: "black",
-    // backgroundColor: "linear-gradient(to right, #654ea3, #eaafc8)",
     boxShadow: "none",
     position: "sticky",
     top: 0,
-    // border:"1px solid white",
-    borderRadius: "10px",
+    // border: "1px solid white",
     width: "100%",
-
   },
   navbarBrand: {
     textDecoration: "none",
@@ -31,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     marginRight: theme.spacing(4),
     fontWeight: "bold",
+    fontFamily: "Oswald", // Add your special font here
     "&:hover": {
       color: "#ff9800",
     },
@@ -43,27 +38,26 @@ const useStyles = makeStyles((theme) => ({
   },
   navLinkText: {
     color: "#fff",
-    // border: "1px solid white",
-    fontSize: "1.2rem",
+    fontSize: "1.3rem",
     textDecoration: "none",
+    fontWeight: "bold", // Make the text bolder
+    fontFamily: "Oswald", // Add your special font here
     "&:hover": {
       color: "#ff9800",
     },
   },
-  toolbar:{
+  toolbar: {
     display: "flex",
     justifyContent: "center",
-    
   },
   leftSection: {
-    // border: "1px solid white",
-
+    float: "left",
     display: "flex",
     flex: "1",
     alignItems: "center",
   },
   rightSection: {
-    // border: "1px solid white",
+    paddingLeft: "60px",
     flex: "3",
     display: "flex",
     alignItems: "center",
@@ -73,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "bold",
+    fontFamily: "YourSpecialFont", // Add your special font here
     "&:hover": {
       color: "#ff9800",
     },
