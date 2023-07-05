@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Container, TextField, Button } from '@material-ui/core';
 import OwnerSignIn from './OwnerSignIn';
 import OwnerSignUp from './OwnerSignUp';
-
+import { connect } from '../../functions';
 const OwnerAuth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const toggleSignUp = () => {
-    setIsSignUp(!isSignUp);
+    isSignUp = connect()
   };
 //   console.log(isSignUp);
 

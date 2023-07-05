@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import bgvideo from "../../images/AjarJaggedClumber.mp4";
 import { Link } from "react-router-dom";
-
+import { connect } from "../../functions";
 const useStyles = makeStyles((theme) => ({
   videoBackground: {
     position: "fixed",

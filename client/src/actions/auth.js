@@ -61,16 +61,16 @@ export const OwnerSignIn = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const GranteeSignIn = (account, navigate) => async (dispatch) => {
-  try{
-    console.log("inside");
-    const response = await api.GranteeSignIn(account);
-    if(response.status === 201) console.log(response.data);
-    else{
-      dispatch({type: "AuthGrantee", data: response.data});
-      refreshPage();
-    }
-  } catch(error) {
-    console.log(error);
-  }
-}
+// export const GranteeSignIn = (account, navigate) => async (dispatch) => {
+//   try{
+//     console.log("inside");
+//     const response = await api.GranteeSignIn(account);
+//     if(response.status === 201) console.log(response.data);
+//     else{
+//       dispatch({type: "AuthGrantee", data: response.data});
+//       refreshPage();
+//     }
+//   } catch(error) {
+//     console.log(error);
+//   }
+// }
