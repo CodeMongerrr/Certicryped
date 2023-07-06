@@ -28,8 +28,11 @@ const GranteeSignin = ({ connect }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const account = connect();
-    dispatch(GranteeSignIn(account, navigate));
+    let isConnected = false;
+    isConnected = await connect();
+    if(isConnected){
+      navigate("/granteeportal")
+    }
 
   };
 

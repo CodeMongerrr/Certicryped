@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import img from "../../images/4127298.jpg";
+import { loadAccount } from "../../functions";
 import {
   Box,
   Container,
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     minHeight: "100vh",
     overflowX: "hidden",
-    overflowY:"",
+    overflowY: "",
     // Add transition effect for the blur change
   },
   contentContainer: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     width: "auto",
     objectFit: "contain",
-    marginLeft: "20px"
+    marginLeft: "20px",
   },
   poppedOutContainer: {
     position: "fixed",
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GranteePortal = ({ getNFTs, get_ids_of_owner , loadAccount}) => {
+const GranteePortal = ({ getNFTs, get_ids_of_owner, loadAccount }) => {
   const classes = useStyles();
   const [isCardClicked, setCardClicked] = useState(false); // State variable to track whether a card is clicked
   const [selectedCardIndex, setSelectedCardIndex] = useState(-1); // State variable to store the index of the selected card
@@ -95,25 +96,32 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner , loadAccount}) => {
     setSelectedCardIndex(-1);
   };
 
-  // const handle = async() => {
-     
-  // }
-  const nftData = async() => {
-    
+  let nftData = [];
+  const nft = async () => {
     const account = await loadAccount();
-    const nfts = getNFTs(account);
-    return nfts;
-  }
+    console.log(account);
+    const nfts = await getNFTs(account);
+    nftData = nfts;
+    console.log(nftData);
+  };
+  useEffect(() => {
+    nft();
+  }, []);
+
   return (
     <div>
-      <Box className={`${classes.root}`} >
+      <Box className={`${classes.root}`}>
         <Container maxWidth="md">
           <Box className={classes.contentContainer}>
             <Typography variant="h4" className={classes.heading}>
               NFT Data
             </Typography>
           </Box>
-          <Box className={`${classes.cardContainer} ${isCardClicked ? classes.blurred : ""}`}>
+          <Box
+            className={`${classes.cardContainer} ${
+              isCardClicked ? classes.blurred : ""
+            }`}
+          >
             {nftData.map((nft, index) => (
               <Card
                 key={index}
@@ -147,11 +155,13 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner , loadAccount}) => {
                   <Typography variant="body2">
                     {nftData[selectedCardIndex].description}
                   </Typography>
-                  {nftData[selectedCardIndex].attributes.map((attribute, index) => (
-                    <Typography key={index} variant="body2">
-                      {attribute.trait_type}: {attribute.value}
-                    </Typography>
-                  ))}
+                  {nftData[selectedCardIndex].attributes.map(
+                    (attribute, index) => (
+                      <Typography key={index} variant="body2">
+                        {attribute.trait_type}: {attribute.value}
+                      </Typography>
+                    )
+                  )}
                 </CardContent>
               </Card>
             </Box>

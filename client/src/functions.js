@@ -30,7 +30,7 @@ export const loadWeb3 = async () => {
   }
 };
 export const loadAccount = async () => {
-  const web3 = window.web3;
+  const web3 = new Web3(window.web3.currentProvider);
   const accounts = await web3.eth.getAccounts();
   const acc = accounts[0];
   account = acc;
@@ -876,5 +876,5 @@ export const revoke = async (university_pub_key) => {
       console.log("University Revoked Successfully");
       isrevoked = true;
     });
-    return isrevoked;
+  return isrevoked;
 };
