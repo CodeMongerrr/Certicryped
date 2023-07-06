@@ -30,10 +30,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url(${img})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.3)", // Adjust the overlay color and opacity
+    },
   },
   contentContainer: {
     display: "flex",
@@ -51,11 +56,17 @@ const useStyles = makeStyles((theme) => ({
   },
   homeText: {
     color: "#FFFFFF",
-    fontSize: "5rem",
+    // fontSize: "5rem",
     fontWeight: 900,
     margin: theme.spacing(2),
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
     fontFamily: "Roboto",
+    fontSize: "4rem", // Adjust the font size
+    lineHeight: 1.2, // Add line-height for better readability
+    textAlign: "center", // Center align the text
+    "@media (min-width: 600px)": {
+      fontSize: "5rem", // Increase the font size for larger screens
+    },
   },
   buttonText: {
     color: theme.palette.primary.main,
@@ -70,6 +81,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(100),
     backgroundImage: "linear-gradient(to right, #4a47a3, #2c3e50)",
     color: "#FFFFFF",
+    transition: "background-color 0.3s ease-in-out",
+    "&:hover": {
+      backgroundImage: "linear-gradient(to right, #2c3e50, #4a47a3)", // Adjust the gradient colors
+    },
   },
   modal: {
     display: "flex",
@@ -89,9 +104,9 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch", // Adjust alignment to stretch
     marginTop: theme.spacing(4),
-    position: "absolute", // Added position absolute
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -102,14 +117,25 @@ const useStyles = makeStyles((theme) => ({
     height: "300px",
     alignItems: "center",
     flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
-    padding: theme.spacing(4),
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    boxShadow: "4px 4px 8px rgba(0, 0, 0, 1)",
+    padding: theme.spacing(2),
+    backgroundColor: "#1E1E1E", // Set a dark background color
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
     cursor: "pointer",
-    margin: theme.spacing(2), // Added margin
-    borderRadius: "30px"
+    margin: theme.spacing(2),
+    color: theme.palette.common.white,
+    transition: "background 0.3s ease-in-out",
+    "&:hover": {
+      background: "#4A47A3", // Set a highlight color on hover
+    },
+    flex: 1,
+    minWidth: 0,
+    width: "calc(100% / 3)",
+    height: "300px",
+    borderRadius: theme.spacing(2), // Add some border radius
   },
+
   image: {
     width: "80px",
     height: "80px",
@@ -131,7 +157,7 @@ export default function Home() {
 
   const handleGranteeClick = () => {
     navigate("/grantee");
-};
+  };
 
   const handleLoginClick = () => {
     setOpen(true);
@@ -162,14 +188,17 @@ export default function Home() {
           </Typography>
         </div>
       )}
-      <Button
-        className={classes.loginButton}
-        variant="contained"
-        color="primary"
-        onClick={handleLoginClick}
-      >
-        Login
-      </Button>
+      {!open && ( // Conditionally render the Typography only if open is false
+        <Button
+          className={classes.loginButton}
+          variant="contained"
+          color="primary"
+          onClick={handleLoginClick}
+        >
+          Login
+        </Button>
+      )}
+
       <Modal
         className={classes.modal}
         open={open}

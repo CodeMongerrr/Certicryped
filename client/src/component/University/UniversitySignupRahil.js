@@ -5,19 +5,14 @@ import { useDispatch } from "react-redux";
 import { Universitysignup } from "../../actions/auth";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import bgvideo from "../../images/AjarJaggedClumber.mp4";
+// import bgvideo from "../../images/AjarJaggedClumber.mp4";
+
 
 const useStyles = makeStyles((theme) => ({
-  videoBackground: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    zIndex: -1,
-  },
   container: {
+    // border: "1px solid white",
+    height: "100%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -61,9 +56,6 @@ const UniversitySignupRahil = () => {
 
   return (
     <div>
-      <video className={classes.videoBackground} autoPlay loop muted>
-        <source src={bgvideo} type="video/mp4" />
-      </video>
       <Container maxWidth="sm" className={classes.container}>
         <div className={classes.formContainer}>
           <form onSubmit={handleFormSubmit}>
