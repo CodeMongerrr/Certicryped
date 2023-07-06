@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import img from "../../images/4127298.jpg";
 import { loadAccount } from "../../functions";
@@ -81,95 +80,99 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GranteePortal = ({ getNFTs, get_ids_of_owner, loadAccount }) => {
-const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
-  const classes = useStyles();
-  const [isCardClicked, setCardClicked] = useState(false); // State variable to track whether a card is clicked
-  const [selectedCardIndex, setSelectedCardIndex] = useState(-1); // State variable to store the index of the selected card
-  const handleCardClick = (index) => {
-    setCardClicked(true);
-    setSelectedCardIndex(index);
-  };
+  const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
+    const classes = useStyles();
+    const [isCardClicked, setCardClicked] = useState(false); // State variable to track whether a card is clicked
+    const [selectedCardIndex, setSelectedCardIndex] = useState(-1); // State variable to store the index of the selected card
+    const handleCardClick = (index) => {
+      setCardClicked(true);
+      setSelectedCardIndex(index);
+    };
 
-  const handleCloseCard = () => {
-    setCardClicked(false);
-    setSelectedCardIndex(-1);
-  };
+    const handleCloseCard = () => {
+      setCardClicked(false);
+      setSelectedCardIndex(-1);
+    };
 
-  let nftData = [];
-  const nft = async () => {
-    const account = await loadAccount();
-    console.log(account);
-    const nfts = await getNFTs(account);
-    nftData = nfts;
-    console.log(nftData);
-  };
-  useEffect(() => {
-    nft();
-  }, []);
+    let nftData = [];
+    const nft = async () => {
+      const account = await loadAccount();
+      console.log(account);
+      const nfts = await getNFTs(account);
+      nftData = nfts;
+      console.log(nftData);
+    };
+    useEffect(() => {
+      nft();
+    }, []);
 
-  return (
-    <div>
-      <Box className={`${classes.root}`}>
-      <Box className={classes.root}>
-        <Container maxWidth="md">
+    return (
+      <div>
+        <Box className={`${classes.root}`}>
           <Box className={classes.root}>
-            <Typography variant="h4" className={classes.heading}>
-              NFT Data
-            </Typography>
-          </Box>
-          <Box
-            className={`${classes.cardContainer} ${
-              isCardClicked ? classes.blurred : ""
-            }`}
-          >
-            {nftData.map((nft, index) => (
-              <Card
-                key={index}
-                className={classes.card}
-                onClick={() => handleCardClick(index)}
+            <Container maxWidth="md">
+              <Box className={classes.root}>
+                <Typography variant="h4" className={classes.heading}>
+                  NFT Data
+                </Typography>
+              </Box>
+              <Box
+                className={`${classes.cardContainer} ${
+                  isCardClicked ? classes.blurred : ""
+                }`}
               >
-                <CardMedia
-                  className={classes.cardMedia}
-                  component="img"
-                  src={nft.image}
-                />
-                <CardContent>
-                  <Typography variant="h6">{nft.name}</Typography>
-                  <Typography variant="body2">{nft.description}</Typography>
-                  {nft.attributes.map((attribute, index) => (
-                    <Typography key={index} variant="body2">
-                      {attribute.trait_type}: {attribute.value}
-                    </Typography>
-                  ))}
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-          {selectedCardIndex !== -1 && (
-            <Box className={classes.poppedOutContainer}>
-              <Card className={classes.poppedOutCard} onClick={handleCloseCard}>
-                <CardContent>
-                  <Typography variant="h6">
-                    {nftData[selectedCardIndex].name}
-                  </Typography>
-                  <Typography variant="body2">
-                    {nftData[selectedCardIndex].description}
-                  </Typography>
-                  {nftData[selectedCardIndex].attributes.map(
-                    (attribute, index) => (
-                      <Typography key={index} variant="body2">
-                        {attribute.trait_type}: {attribute.value}
+                {nftData.map((nft, index) => (
+                  <Card
+                    key={index}
+                    className={classes.card}
+                    onClick={() => handleCardClick(index)}
+                  >
+                    <CardMedia
+                      className={classes.cardMedia}
+                      component="img"
+                      src={nft.image}
+                    />
+                    <CardContent>
+                      <Typography variant="h6">{nft.name}</Typography>
+                      <Typography variant="body2">{nft.description}</Typography>
+                      {nft.attributes.map((attribute, index) => (
+                        <Typography key={index} variant="body2">
+                          {attribute.trait_type}: {attribute.value}
+                        </Typography>
+                      ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+              {selectedCardIndex !== -1 && (
+                <Box className={classes.poppedOutContainer}>
+                  <Card
+                    className={classes.poppedOutCard}
+                    onClick={handleCloseCard}
+                  >
+                    <CardContent>
+                      <Typography variant="h6">
+                        {nftData[selectedCardIndex].name}
                       </Typography>
-                    )
-                  )}
-                </CardContent>
-              </Card>
-            </Box>
-          )}
-        </Container>
-      </Box>
-    </div>
-  );
-};
-
+                      <Typography variant="body2">
+                        {nftData[selectedCardIndex].description}
+                      </Typography>
+                      {nftData[selectedCardIndex].attributes.map(
+                        (attribute, index) => (
+                          <Typography key={index} variant="body2">
+                            {attribute.trait_type}: {attribute.value}
+                          </Typography>
+                        )
+                      )}
+                    </CardContent>
+                  </Card>
+                </Box>
+              )}
+            </Container>
+          </Box>
+        </Box>
+      </div>
+    );
+  };
+} 
 export default GranteePortal;
