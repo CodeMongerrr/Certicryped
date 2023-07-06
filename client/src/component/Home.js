@@ -177,6 +177,7 @@ export default function Home() {
                 "NFT Powered Credentials",
                 "Decentralized Certificates",
                 "Blockchain Accredition",
+                "Money is Great"
               ]}
               typeSpeed={60}
               backSpeed={30}

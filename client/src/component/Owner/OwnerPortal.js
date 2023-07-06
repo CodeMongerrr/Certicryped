@@ -10,7 +10,11 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import img from "../../images/design.jpg";
-import { getuniversites, updateUniversity, revokeUniversity } from "../../actions/universites";
+import {
+  getuniversites,
+  updateUniversity,
+  revokeUniversity,
+} from "../../actions/universites";
 import { useDispatch, useSelector } from "react-redux";
 import { approve } from "../../functions";
 
@@ -53,7 +57,7 @@ export default function Owner() {
   const dispatch = useDispatch();
 
   const universities = useSelector((store) => store.universites.universities);
-
+  console.log(universities);
   const approvedUniversities = universities.filter(
     (university) => university.isApproved
   );
@@ -76,15 +80,19 @@ export default function Owner() {
         ...university,
         isApproved: false,
       };
-      await dispatch(updateUniversity(updatedUniversity));
+      let a = await approve(university.UniversityPublicKey);
+      if (a) {
+        await dispatch(updateUniversity(updatedUniversity));
+      }
     } else {
       const updatedUniversity = {
         ...university,
         isApproved: true,
       };
-      approve(university.UniversityPublicKey)
-      console.log(university);
-      await dispatch(updateUniversity(updatedUniversity));
+      let a = await approve(university.UniversityPublicKey);
+      if (a) {
+        await dispatch(updateUniversity(updatedUniversity));
+      }
     }
     await dispatch(getuniversites());
   };
@@ -94,7 +102,12 @@ export default function Owner() {
       <div className={classes.formContainer}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom style={{ color: "white" }}>
+            <Typography
+              variant="h4"
+              align="center"
+              gutterBottom
+              style={{ color: "white" }}
+            >
               Owner's Portal
             </Typography>
           </Grid>

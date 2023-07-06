@@ -4,7 +4,6 @@ import lighthouse from "@lighthouse-web3/sdk";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-
 let account = [];
 let certificate = null;
 let tokenid = 9;
@@ -780,7 +779,7 @@ export const userdata = {
 export const mintCertificate = async (holder_key, MetaData) => {
   console.log(account);
   loadAccount();
-  console.log(account)
+  console.log(account);
   if (
     MetaData !== { name: "", program: "", holder_key: "" } &&
     holder_key !== 0
@@ -823,20 +822,11 @@ export const connect = async (event) => {
   // console.log(counter_account);
   if (account.toLowerCase() === counter_account) {
     return true;
-  }
-  else{
+  } else {
     return false;
   }
 };
-export const approve = async (university_pub_key) => {
-  await certificate.methods
-    .approveUniversity(university_pub_key)
-    .send({ from: account })
-    .on("transactionHash", function (hash) {
-      console.log("University Approved Successfully");
-      console.log(hash);
-    });
-};
+
 export const get_ids_of_owner = async (grantee) => {
   console.log("Entered");
   const result = await certificate.methods
@@ -866,12 +856,25 @@ export const getNFTs = async (grantee) => {
 
   return Metadatas;
 };
+export const approve = async (university_pub_key) => {
+  let isapproved = false;
+  await certificate.methods
+    .approveUniversity(university_pub_key)
+    .send({ from: account })
+    .on("transactionHash", function (hash) {
+      console.log("University Approved Successfully");
+      isapproved = true;
+    });
+  return isapproved;
+};
 export const revoke = async (university_pub_key) => {
+  let isrevoked = false;
   await certificate.methods
     .revokeUniversity(university_pub_key)
     .send({ from: account })
     .on("transactionHash", function (hash) {
       console.log("University Revoked Successfully");
-      console.log(hash);
+      isrevoked = true;
     });
+    return isrevoked;
 };
