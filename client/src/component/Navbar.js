@@ -120,7 +120,7 @@ export default function Navbar() {
                       component="span"
                       className={classes.navLinkText}
                     >
-                      University
+                      Institution
                     </Typography>
                   </Link>
                   <Link to="/grantee" className={classes.navLink}>

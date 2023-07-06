@@ -98,66 +98,12 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner , loadAccount}) => {
   // const handle = async() => {
      
   // }
-  const nftData = [
-
-    {
-      name: "Aditya Roshan Joshi",
-      description: "Blockchain Developer",
-      image:
-        "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
-      attributes: [
-        {
-          trait_type: "Program",
-          value: "Blockchain",
-        },
-      ],
-    },
-    {
-      name: "Emily Thompson",
-      description: "Frontend Developer",
-      image: "https://example.com/emily.png",
-      attributes: [
-        {
-          trait_type: "Program",
-          value: "JavaScript",
-        },
-      ],
-    },
-    {
-      name: "Michael Rodriguez",
-      description: "Data Scientist",
-      image: "https://example.com/michael.png",
-      attributes: [
-        {
-          trait_type: "Program",
-          value: "Python",
-        },
-      ],
-    },
-    {
-      name: "Sophia Chen",
-      description: "UX Designer",
-      image: "https://example.com/sophia.png",
-      attributes: [
-        {
-          trait_type: "Program",
-          value: "Figma",
-        },
-      ],
-    },
-    {
-      name: "Robert Johnson",
-      description: "Backend Developer",
-      image: "https://example.com/robert.png",
-      attributes: [
-        {
-          trait_type: "Program",
-          value: "Java",
-        },
-      ],
-    },
-
-  ]; 
+  const nftData = async() => {
+    
+    const account = await loadAccount();
+    const nfts = getNFTs(account);
+    return nfts;
+  }
   return (
     <div>
       <Box className={`${classes.root}`} >

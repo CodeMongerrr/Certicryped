@@ -237,7 +237,7 @@ export default function Home() {
                 </IconButton>
                 <CardContent>
                   <Typography className={classes.buttonText}>
-                    University Login
+                    Institution Login
                   </Typography>
                 </CardContent>
               </Card>

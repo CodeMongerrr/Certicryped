@@ -29,7 +29,6 @@ const GranteeSignin = ({ connect }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const account = connect();
-    console.log("Haan bhai yaha se gaya hai andar")
     dispatch(GranteeSignIn(account, navigate));
 
   };
