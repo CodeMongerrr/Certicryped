@@ -103,11 +103,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     flexDirection: "column",
     alignItems: "center",
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
     backgroundColor: "rgba(255, 255, 255, 0.8)",
-    boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.4)",
+    boxShadow: "4px 4px 8px rgba(0, 0, 0, 1)",
     cursor: "pointer",
     margin: theme.spacing(2), // Added margin
+    borderRadius: "30px"
   },
   image: {
     width: "80px",

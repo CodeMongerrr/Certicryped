@@ -3,7 +3,7 @@ import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { OwnerSignIn } from "../../actions/auth";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { connect } from '../../functions';
 
 // import { login } from './actions'; // Assuming you have an 'actions' file that exports the login action
 
@@ -34,10 +34,11 @@ const OwnerAuthUpdated = () => {
     OwnerEmail: "rahildeepakgodha@gmail.com",
     OwnerPassword: "Rahil@05082003",
   });
-
-  const handleLogin = () => {
-    // dispatch(login()); // Dispatch the login action
-    dispatch(OwnerSignIn(formData, navigate));
+  
+  const handleLogin = async() => {
+    const a = await connect();
+    console.log(a)
+    if(a) dispatch(OwnerSignIn(formData, navigate));
   };
 
   return (

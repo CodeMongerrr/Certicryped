@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "1000",
     color: "#fff",
     marginRight: theme.spacing(4),
-    fontWeight: "bold",
-    fontFamily: "Oswald", // Add your special font here
+    fontWeight: "bolder",
+    fontFamily: "Roboto", // Add your special font here
     "&:hover": {
       color: "#ff9800",
     },
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.3rem",
     textDecoration: "none",
     fontWeight: "bold", // Make the text bolder
-    fontFamily: "Oswald", // Add your special font here
+    fontFamily: "Roboto", // Add your special font here
     "&:hover": {
       color: "#ff9800",
     },
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   rightSection: {
-    paddingLeft: "60px",
+    paddingLeft: "120px",
     flex: "3",
     display: "flex",
     alignItems: "center",
@@ -129,7 +129,7 @@ export default function Navbar() {
                       component="span"
                       className={classes.navLinkText}
                     >
-                      Certificate Holder Login
+                      Grantee Login
                     </Typography>
                   </Link>
                 </>

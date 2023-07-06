@@ -61,7 +61,6 @@ const UniversitySignInRahil = () => {
 
     if(a)
     {
-      console.log("asdbasd");
       console.log(dispatch(UniversitySignIn(formData, navigate)));
     }
   };
