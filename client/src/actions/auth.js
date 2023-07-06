@@ -1,5 +1,5 @@
 import * as api from "../api/index";
-
+import { connect } from "../functions";
 function refreshPage() {
   window.location.reload(false);
 }
@@ -53,7 +53,7 @@ export const OwnerSignIn = (formData, navigate) => async (dispatch) => {
     if (response.status === 201) console.log(response.data);
     else {
       dispatch({ type: "AUTHOwner", data: response.data });
-  
+
       refreshPage();
     }
   } catch (error) {
@@ -62,15 +62,16 @@ export const OwnerSignIn = (formData, navigate) => async (dispatch) => {
 };
 
 export const GranteeSignIn = (account, navigate) => async (dispatch) => {
-  try{
-    console.log("inside");
-    const response = await api.GranteeSignIn(account);
-    if(response.status === 201) console.log(response.data);
-    else{
-      dispatch({type: "AuthGrantee", data: response.data});
-      refreshPage();
+  try {
+    let a = false
+    a = connect();
+    console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+    if(a){
+      console.log("ISKE ANDAR AYA THA VOH BHAI SACCHI")
+      // navigate('/granteeportal')
     }
-  } catch(error) {
+    
+  } catch (error) {
     console.log(error);
   }
-}
+};

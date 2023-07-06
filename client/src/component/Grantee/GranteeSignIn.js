@@ -29,7 +29,9 @@ const GranteeSignin = ({ connect }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const account = connect();
+    console.log("Haan bhai yaha se gaya hai andar")
     dispatch(GranteeSignIn(account, navigate));
+
   };
 
   const classes = useStyles();
@@ -40,11 +42,11 @@ const GranteeSignin = ({ connect }) => {
         <div className={classes.formContainer}>
           <form onSubmit={handleFormSubmit}>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Link to="/granteeportal" >
+              
                 <Button variant="contained" color="primary" type="submit">
                   Sign In
                 </Button>
-              </Link>
+              
             </div>
           </form>
         </div>

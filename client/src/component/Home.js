@@ -15,7 +15,9 @@ import {
 import { AccountCircle } from "@material-ui/icons";
 import { useNavigate } from "react-router-dom";
 import Typed from "react-typed";
-
+import universityImage from "./../images/university.png";
+import granteeImage from "./../images/grantee.png";
+import ownerImage from "./../images/owner.png";
 const useStyles = makeStyles((theme) => ({
   homeBody: {
     position: "relative",
@@ -60,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.5rem",
     textTransform: "capitalize",
     marginTop: theme.spacing(2),
+    textAlign: "center"
   },
   loginButton: {
     marginTop: theme.spacing(17.5),
@@ -75,8 +78,9 @@ const useStyles = makeStyles((theme) => ({
   },
   modalContent: {
     backgroundColor: "#FFFFFF",
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.spacing(5),
     boxShadow: theme.shadows[5],
+    opacity: "100%",
     outline: "none",
     maxWidth: "80%",
     width: "90%",
@@ -94,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     display: "flex",
+    width: "200px",
+    height: "300px",
+    alignItems: "center",
     flexDirection: "column",
     alignItems: "center",
     padding: theme.spacing(2),
@@ -177,7 +184,11 @@ export default function Home() {
             <div className={classes.cardContainer}>
               <Card className={classes.card} onClick={handleOwnerClick}>
                 <IconButton aria-label="Owner Login">
-                  <AccountCircle fontSize="large" />
+                <img
+                src={ownerImage}
+                alt="Owner"
+                className={classes.image}
+              />
                 </IconButton>
                 <CardContent>
                   <Typography className={classes.buttonText}>
@@ -187,7 +198,11 @@ export default function Home() {
               </Card>
               <Card className={classes.card} onClick={handleUniversityClick}>
                 <IconButton aria-label="University Login">
-                  <AccountCircle fontSize="large" />
+                <img
+                src={universityImage}
+                alt="University"
+                className={classes.image}
+              />
                 </IconButton>
                 <CardContent>
                   <Typography className={classes.buttonText}>
@@ -197,11 +212,15 @@ export default function Home() {
               </Card>
               <Card className={classes.card} onClick={handleGranteeClick}>
                 <IconButton aria-label="Certificate Holder Login">
-                  <AccountCircle fontSize="large" />
+                <img
+                src={granteeImage}
+                alt="Grantee"
+                className={classes.image}
+              />
                 </IconButton>
                 <CardContent>
                   <Typography className={classes.buttonText}>
-                    Certificate Holder Login
+                    Grantee Login
                   </Typography>
                 </CardContent>
               </Card>

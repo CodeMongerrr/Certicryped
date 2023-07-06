@@ -50,7 +50,6 @@ export const loadContract = async () => {
   const web3 = window.web3;
 
   loadAccount();
-  console.log(window.web3.eth.getGasPrice());
   // const network_id = await web3.eth.net.getId();
   const certificate_abi = [
     {
@@ -821,9 +820,12 @@ export const connect = async (event) => {
   let data = {
     public_key: counter_account,
   };
-  console.log(counter_account);
+  // console.log(counter_account);
   if (account.toLowerCase() === counter_account) {
     return true;
+  }
+  else{
+    return false;
   }
 };
 export const approve = async (university_pub_key) => {

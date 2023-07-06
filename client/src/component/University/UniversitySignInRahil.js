@@ -6,7 +6,7 @@ import { UniversitySignIn } from "../../actions/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import bgvideo from "../../images/AjarJaggedClumber.mp4";
-
+import {connect} from "./../../functions";
 const useStyles = makeStyles((theme) => ({
   videoBackground: {
     position: "fixed",
@@ -28,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
     borderRadius: theme.spacing(2),
   },
+  login: {
+    textAlign: "left",
+    paddingLeft: "20px",
+    fontFamily: "Roboto",
+    fontSize: "XX-large",
+    fontWeight: "bold"
+    }
 }));
 
 const UniversitySignInRahil = () => {
@@ -50,7 +57,13 @@ const UniversitySignInRahil = () => {
     event.preventDefault();
     console.log(formData);
     console.log("outside");
-    dispatch(UniversitySignIn(formData, navigate));
+    const a = await connect();
+
+    if(a)
+    {
+      console.log("asdbasd");
+      console.log(dispatch(UniversitySignIn(formData, navigate)));
+    }
   };
 
   const classes = useStyles();
@@ -62,6 +75,7 @@ const UniversitySignInRahil = () => {
       </video>
       <Container maxWidth="sm" className={classes.container}>
         <div className={classes.formContainer}>
+          <p className={classes.login}> Login </p>
           <form onSubmit={handleFormSubmit}>
             <TextField
               label="Email"
