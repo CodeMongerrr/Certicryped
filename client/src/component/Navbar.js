@@ -15,59 +15,57 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
     boxShadow: "none",
     position: "sticky",
-    top: 0,
-    // border: "1px solid white",
+    top: "10px",
     width: "100%",
   },
   navbarBrand: {
     textDecoration: "none",
-    maxWidth: "1000",
     color: "#fff",
-    marginRight: theme.spacing(4),
     fontWeight: "bolder",
-    fontFamily: "Roboto", // Add your special font here
-    "&:hover": {
-      color: "#ff9800",
-    },
-  },
-  navLink: {
-    marginRight: theme.spacing(4),
-    "&:last-child": {
-      marginRight: 0,
-    },
-  },
-  navLinkText: {
-    color: "#fff",
-    fontSize: "1.3rem",
-    textDecoration: "none",
-    fontWeight: "bold", // Make the text bolder
-    fontFamily: "Roboto", // Add your special font here
+    fontFamily: "Arial, sans-serif",
     "&:hover": {
       color: "#ff9800",
     },
   },
   toolbar: {
+    // border:"1px solid white",
+    // borderBottom: "1px solid #ffffff",
     display: "flex",
     justifyContent: "center",
-  },
-  leftSection: {
-    float: "left",
-    display: "flex",
-    flex: "1",
     alignItems: "center",
+  },
+  logoContainer: {
+    flex: "1.3",
+    // border: "1px solid white",
+    display: "flex",
+    justifyContent: "right",
+    alignItems: "center",
+    // flexGrow: 1,
+
+  },
+  logo: {
+    textDecoration: "none",
+    color: "#fff",
+    fontSize: "2rem",
+    fontWeight: "bolder",
+    fontFamily: "Arial, sans-serif",
+    "&:hover": {
+      color: "#ff9800",
+    },
   },
   rightSection: {
-    paddingLeft: "120px",
-    flex: "3",
+    // border:"1px solid white",
+    flex: "1",
     display: "flex",
     alignItems: "center",
+    justifyContent: "flex-end",
   },
   logoutButton: {
     color: "#fff",
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "bold",
-    fontFamily: "YourSpecialFont", // Add your special font here
+    fontFamily: "Arial, sans-serif",
     "&:hover": {
       color: "#ff9800",
     },
@@ -91,49 +89,19 @@ export default function Navbar() {
       <AppBar position="static" className={classes.appBar}>
         <Container>
           <Toolbar className={classes.toolbar}>
-            <div className={classes.leftSection}>
+            <div className={classes.logoContainer}>
               <Typography
                 variant="h5"
                 component={Link}
                 to="/"
-                className={classes.navbarBrand}
+                className={classes.logo}
               >
                 Certicryp
               </Typography>
             </div>
 
             <div className={classes.rightSection}>
-              {!ownerProfile && !universityProfile ? (
-                <>
-                  <Link to="/owner" className={classes.navLink}>
-                    <Typography
-                      variant="h6"
-                      component="span"
-                      className={classes.navLinkText}
-                    >
-                      Owner Login
-                    </Typography>
-                  </Link>
-                  <Link to="/university" className={classes.navLink}>
-                    <Typography
-                      variant="h6"
-                      component="span"
-                      className={classes.navLinkText}
-                    >
-                      Institution
-                    </Typography>
-                  </Link>
-                  <Link to="/grantee" className={classes.navLink}>
-                    <Typography
-                      variant="h6"
-                      component="span"
-                      className={classes.navLinkText}
-                    >
-                      Grantee Login
-                    </Typography>
-                  </Link>
-                </>
-              ) : (
+              {ownerProfile || universityProfile ? (
                 <Button
                   color="inherit"
                   onClick={handleLogout}
@@ -141,7 +109,7 @@ export default function Navbar() {
                 >
                   Logout
                 </Button>
-              )}
+              ) : null}
             </div>
           </Toolbar>
         </Container>
