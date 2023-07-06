@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { OwnerSignIn } from "../../actions/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { connect } from '../../functions';
+import img from "../../images/5040007.jpg";
 
 // import { login } from './actions'; // Assuming you have an 'actions' file that exports the login action
 
@@ -14,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: 'black',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${img})`, // Update the background image with linear gradient overlay
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
     color: 'white',
   },
   title: {

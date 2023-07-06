@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import img from "../../images/4127298.jpg";
 import { loadAccount } from "../../functions";
@@ -16,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // backgroundImage: `${img}`,
     backgroundImage: `url(${img})`,
     backgroundColor: "black",
     backgroundSize: "cover",
@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     // Add transition effect for the blur change
   },
   contentContainer: {
-    position: "relative", // Set position to relative for centering
-    textAlign: "center", // Center the text horizontally
+    position: "relative",
+    textAlign: "center",
   },
   heading: {
     marginBottom: theme.spacing(3),
@@ -41,13 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContainer: {
     display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)", // Set the grid to have 2 columns
-    gap: theme.spacing(1), // Add a gap between the cards
-    justifyContent: "center", // Center the cards horizontally
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: theme.spacing(1),
+    justifyContent: "center",
   },
-
   blurred: {
-    filter: "blur(5px)", // Set initial blur to 0
+    filter: "blur(5px)",
     transition: "filter 0.3s ease",
   },
   card: {
@@ -56,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "90%",
     marginBottom: theme.spacing(2),
-    boxShadow: "0px 4px 10px rgba(1, 1, 1, 1)", // Add shadow to the card
-    borderRadius: theme.spacing(100), // Add rounded corners to the card
-    cursor: "pointer", // Add cursor pointer for click interaction
-    transition: "transform 0.3s ease", // Add transition effect for popping out
+    boxShadow: "0px 4px 10px rgba(1, 1, 1, 1)",
+    borderRadius: theme.spacing(100),
+    cursor: "pointer",
+    transition: "transform 0.3s ease",
   },
   cardMedia: {
     height: "100%",
@@ -78,11 +77,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     padding: theme.spacing(2),
     boxShadow: "0px 4px 10px rgba(1, 1, 1, 1)",
-    // Add any other desired styles for the popped-out card
   },
 }));
 
 const GranteePortal = ({ getNFTs, get_ids_of_owner, loadAccount }) => {
+const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
   const classes = useStyles();
   const [isCardClicked, setCardClicked] = useState(false); // State variable to track whether a card is clicked
   const [selectedCardIndex, setSelectedCardIndex] = useState(-1); // State variable to store the index of the selected card
@@ -111,8 +110,9 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner, loadAccount }) => {
   return (
     <div>
       <Box className={`${classes.root}`}>
+      <Box className={classes.root}>
         <Container maxWidth="md">
-          <Box className={classes.contentContainer}>
+          <Box className={classes.root}>
             <Typography variant="h4" className={classes.heading}>
               NFT Data
             </Typography>

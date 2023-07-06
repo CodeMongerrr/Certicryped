@@ -4,9 +4,6 @@ import { useDispatch } from "react-redux";
 import { GranteeSignIn } from "../../actions/auth";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import bgvideo from "../../images/AjarJaggedClumber.mp4";
-import { Link } from "react-router-dom";
-import { connect } from "../../functions";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
