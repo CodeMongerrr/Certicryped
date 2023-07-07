@@ -69,11 +69,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttonText: {
-    color: theme.palette.primary.main,
+    // color: theme.palette.primary.main,
     fontSize: "1.5rem",
     textTransform: "capitalize",
     marginTop: theme.spacing(2),
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Papyrus",
   },
   loginButton: {
     marginTop: theme.spacing(17.5),
@@ -107,6 +108,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "stretch", // Adjust alignment to stretch
     marginTop: theme.spacing(4),
     position: "absolute",
+    fontFamily: "Roboto",
+    
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -129,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: "#4A47A3", // Set a highlight color on hover
     },
+    
     flex: 1,
     minWidth: 0,
     width: "calc(100% / 3)",

@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: "10px",
     width: "100%",
+    backgroundImage: "linear-gradient(to bottom, #1E1E1E, #1F1F1F,)"
+
   },
   navbarBrand: {
     textDecoration: "none",

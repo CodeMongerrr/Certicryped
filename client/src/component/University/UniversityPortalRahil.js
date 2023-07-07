@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyComponent = ({ mintCertificate, uploadFile, get_ids_of_owner }) => {
+const UniversityPortalRahil = ({ mintCertificate, uploadFile, get_ids_of_owner }) => {
   const classes = useStyles();
   const [publickey, setPublickey] = useState("");
   const [grantee, setgrantee] = useState("");
@@ -169,4 +169,4 @@ const MyComponent = ({ mintCertificate, uploadFile, get_ids_of_owner }) => {
   );
 };
 
-export default MyComponent;
+export default UniversityPortalRahil;
