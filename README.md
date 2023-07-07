@@ -5,6 +5,10 @@ Welcome to Certicryp, where we revolutionize the way digital certificates are is
 Certicryp is a decentralized application (DApp) built on the Ethereum blockchain that leverages non-fungible tokens (NFTs) to provide a secure and transparent platform for creating, transferring, and verifying digital certificates. 
 
 ## Key Features
+![WhatsApp Image 2023-07-08 at 00 12 56](https://github.com/CodeMongerrr/Certicryped/assets/99281767/4ede198c-b933-44b5-9ff5-e5794178ce32)
+
+![WhatsApp Image 2023-07-08 at 00 17 52](https://github.com/CodeMongerrr/Certicryped/assets/99281767/828553cf-7225-4b84-83da-9682a5c90e25)
+
 
 - Seamless issuance of personalized certificates by approved universities and institutions
 - Transformation of certificates into unique NFTs for authenticity and ownership verification
