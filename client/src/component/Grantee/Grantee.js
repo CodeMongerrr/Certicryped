@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
+    color: "blue"
   },
 }));
 
@@ -33,5 +34,9 @@ const Grantee = ({ connect, getNFT_metadata }) => {
     </div>
   )
 };
+
+
+
+
 
 export default Grantee;
