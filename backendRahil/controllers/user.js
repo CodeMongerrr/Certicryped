@@ -54,14 +54,17 @@ export const signin = async (req, res) => {
   try {
     console.log(UniversityEmail);
     const existingUser = await user.findOne({ UniversityEmail });
+    // console.log(existingUser);
     if (!existingUser) return res.status(201).json({ message: "User Doesn't exists" });
     const isPasswordCorrect = await bcrypt.compare(UniversityPassword, existingUser.UniversityPassword);
 
     if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid Credentials' });
+    console.log("ahil");
+
 
     const token = jwt.sign({ email: existingUser.UniversityEmail, id: existingUser._id }, 'test', { expiresIn: "1h" });
 
-    
+    console.log("Rahil");
 
 
     res.status(200).json({ result: existingUser, token });

@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import FileBase from "react-file-base64";
-import {
-  Box,
-  Container,
-  TextField,
-  Button,
-  Typography,
-} from "@material-ui/core";
-import CSVReader from "react-csv-reader";
-import img from "../../images/grey.jpg";
+import { Box, Container, TextField, Button, Typography } from "@material-ui/core";
+import img from "../../images/4127298.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width: "100vw",
     height: "100vh",
     display: "flex",
     alignItems: "center",
@@ -34,53 +27,42 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "rgba(256, 256, 256, 0.6)",
+        borderColor: "#fff",
       },
       "&:hover fieldset": {
-        borderColor: "rgba(256, 256, 256, 0.6)",
+        borderColor: "#fff",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "rgba(256, 256, 256, 0.6)",
+        borderColor: "#fff",
       },
       "& input": {
-        color: "rgba(256, 256, 256, 0.9)", // Set the input text color to white
+        color: "#fff",
       },
     },
     "& .MuiInputLabel-root": {
-      color: "rgba(256, 256, 256, 0.9)",
+      color: "#fff",
     },
   },
   submitButton: {
     marginTop: theme.spacing(3),
   },
-  csvReader: {
-    marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)",
-  },
   heading: {
     marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)",
+    color: "#fff",
     fontFamily: "Arial",
     fontSize: "28px",
     fontWeight: "bold",
     textTransform: "uppercase",
   },
-  fileInput: {
-    marginBottom: theme.spacing(3),
-    color: "rgba(256, 256, 256, 0.9)",
-  },
 }));
 
-const UniversityPortalRahil = ({ mintCertificate, uploadFile, get_ids_of_owner }) => {
+const UniversityPortalRahil = ({ mintCertificate, uploadFile, getIdsOfOwner }) => {
   const classes = useStyles();
-  const [publickey, setPublickey] = useState("");
-  const [grantee, setgrantee] = useState("");
+  const [publicKey, setPublicKey] = useState("");
   const [formData, setFormData] = useState({
     name: "Aditya Roshan Joshi",
     description: "Blockchain Developer",
-    image:
-      "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
-
+    image: "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
     attributes: [
       {
         trait_type: "Program",
@@ -88,14 +70,11 @@ const UniversityPortalRahil = ({ mintCertificate, uploadFile, get_ids_of_owner }
       },
     ],
   });
-  const handlebutton = (e) => {
-    e.preventDefault();
-    get_ids_of_owner(grantee);
-  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     uploadFile(formData);
-    mintCertificate(publickey, formData);
+    mintCertificate(publicKey, formData);
   };
 
   const handleInputChange = (e, property) => {
@@ -141,10 +120,8 @@ const UniversityPortalRahil = ({ mintCertificate, uploadFile, get_ids_of_owner }
             label="Public Key"
             variant="outlined"
             fullWidth
-            value={publickey}
-            onChange={(e) =>
-              setPublickey(e.target.value)
-            }
+            value={publicKey}
+            onChange={(e) => setPublicKey(e.target.value)}
           />
           <Button
             className={classes.submitButton}
@@ -156,15 +133,6 @@ const UniversityPortalRahil = ({ mintCertificate, uploadFile, get_ids_of_owner }
           </Button>
         </form>
       </Container>
-      <form onSubmit={handlebutton}>
-      <input
-        type="text"
-        name="inputField"
-        value={grantee}
-        onChange={(e) => setgrantee(e.target.value)}
-      />
-      <button type="submit">Submit</button>
-    </form>
     </Box>
   );
 };
