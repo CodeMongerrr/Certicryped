@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import University from "./component/University/University";
 import Grantee from "./component/Grantee/Grantee";
 import GranteePortal from "./component/Grantee/GranteePortal";
+import CertificateGenerator from './component/Certificate/CertificateGenerator';
+
 import {
   loadWeb3,
   signMessage,
@@ -42,7 +44,7 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route
             path="/owner"
             element={<Owner approve={approve} revoke={revoke} />}
@@ -74,6 +76,9 @@ function App() {
             }
           />
         </Routes>
+        <div style={{backgroundColor: "white"}}>
+          <CertificateGenerator />
+        </div>
       </Router>
     </div>
   );
