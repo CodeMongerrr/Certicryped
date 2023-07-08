@@ -1,69 +1,80 @@
-import React, {useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import CertificateTemplate from './CertificateTemplate';
-// import CertificateForm from './CertificateFrom';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    textAlign: 'center',
+    margin: theme.spacing(4),
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: theme.spacing(4),
+  },
+  input: {
+    marginBottom: theme.spacing(2),
+    width: '300px',
+  },
+  generateButton: {
+    marginBottom: theme.spacing(2),
+    width: '200px',
+  },
+  certificateContainer: {
+    marginTop: theme.spacing(6),
+  },
+}));
 
 const CertificateGenerator = () => {
-    const certificateRef = useRef();
+  const classes = useStyles();
+  const certificateRef = useRef();
 
-    const generateCertificate = ({ name, date, achievement }) => {
-        html2canvas(certificateRef.current).then((canvas) => {
-            canvas.toBlob((blob) => {
-                saveAs(blob, 'certificate.png');
-            });
-        });
-    };
+  const generateCertificate = ({ name }) => {
+    html2canvas(certificateRef.current).then((canvas) => {
+      canvas.toBlob((blob) => {
+        saveAs(blob, 'certificate.png');
+      });
+    });
+  };
 
-    const [name, setName] = useState('');
-    const [date, setDate] = useState('');
-    const [achievement, setAchievement] = useState('');
+  const [name, setName] = useState('');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    generateCertificate({ name });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        generateCertificate({ name, date, achievement });
-    };
-
-    return (
-        <div>
-
-            <h1>Certificate Generator</h1>
-            <div ref={certificateRef}>
-                <CertificateTemplate name ={name} data = {date} achievement={achievement} />
-            </div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Name:
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </label>
-                <br />
-                <label>
-                    Date:
-                    <input
-                        type="text"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                </label>
-                <br />
-                <label>
-                    Achievement:
-                    <input
-                        type="text"
-                        value={achievement}
-                        onChange={(e) => setAchievement(e.target.value)}
-                    />
-                </label>
-                <br />
-                <button type="submit">Generate Certificate</button>
-            </form>
-            {/* <CertificateForm generateCertificate={generateCertificate} /> */}
-        </div>
-    );
+  return (
+    <div className={classes.root}>
+      <Typography variant="h4" component="h1">
+        Certificate Generator
+      </Typography>
+      <div className={classes.certificateContainer} ref={certificateRef}>
+        <CertificateTemplate name={name}/>
+      </div>
+      <form onSubmit={handleSubmit} className={classes.form}>
+        <TextField
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className={classes.input}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={classes.generateButton}
+        >
+          Generate Certificate
+        </Button>
+      </form>
+    </div>
+  );
 };
 
 export default CertificateGenerator;

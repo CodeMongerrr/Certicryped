@@ -1,16 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-// import logo from './logo.png';
+// import logo from '../../images/54794.jpg';
+import bgimg from "../../images/123.png";
 
 const useStyles = makeStyles((theme) => ({
   certificateTemplate: {
-    backgroundColor: '#f5f5f5',
+    height: "100vh",
+    width: "65vw",
+    border:"5px solid black",
+    backgroundImage: `url(${bgimg})`,
+    backgroundSize:"cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
     padding: theme.spacing(2),
-    border: '1px solid #ccc',
     borderRadius: '4px',
-    maxWidth: '400px',
-    margin: '0 auto',
   },
   heading: {
     fontSize: '20px',
@@ -25,30 +29,25 @@ const useStyles = makeStyles((theme) => ({
     width: '150px',
   },
   info: {
+    position: "relative",
     fontSize: '16px',
     marginBottom: theme.spacing(1),
+    top: "410px",
+    right: "0px"
+    // marginTop: "400px",
+    // marginRight: "px"
   },
 }));
 
-const CertificateTemplate = ({ name, date, achievement }) => {
+const CertificateTemplate = ({ name }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.certificateTemplate}>
       {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
-      <Typography variant="h2" className={classes.heading}>
-        Certificate of Achievement
-      </Typography>
       <Typography variant="body1" className={classes.info}>
-        Name: {name}
+        {name}
       </Typography>
-      <Typography variant="body1" className={classes.info}>
-        Date: {date}
-      </Typography>
-      <Typography variant="body1" className={classes.info}>
-        Achievement: {achievement}
-      </Typography>
-      {/* Add more customizable elements as needed */}
     </div>
   );
 };
