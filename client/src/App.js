@@ -24,6 +24,7 @@ import {
   revoke,
 } from "./functions";
 import Login from "./component/Login";
+import Footer from "./component/Footer";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "black",
@@ -76,8 +77,11 @@ function App() {
             }
           />
         </Routes>
-        <div style={{backgroundColor: "white"}}>
+        {/* <div style={{backgroundColor: "white"}}>
           <CertificateGenerator />
+        </div> */}
+        <div>
+          <Footer />
         </div>
       </Router>
     </div>
