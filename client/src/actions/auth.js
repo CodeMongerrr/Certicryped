@@ -19,7 +19,7 @@ export const UniversitySignIn = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const Universitysignup = (formData, navigate) => async (dispatch) => {
+export const UniversitySignUp = (formData, navigate) => async (dispatch) => {
   try {
     const response = await api.UniversitySignUp(formData);
     if (response.status === 201) console.log(response.data);

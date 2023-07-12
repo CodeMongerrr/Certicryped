@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import UniversityPortalRahil from './UniversityPortalRahil';
 import UniversityAuth from './UniversityAuth';
 import UniversityWait from './UniversityWait';
+import Trial from './Trial';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,7 +21,7 @@ const University = ({ mintCertificate, uploadFile }) => {
 
   return (
     <Box className={classes.container}>
-      {!userObject && <UniversityAuth />}
+      {!userObject && <Trial />}
       {userObject && userObject.result.isApproved && (
         <UniversityPortalRahil mintCertificate={mintCertificate} uploadFile={uploadFile} />
       )}

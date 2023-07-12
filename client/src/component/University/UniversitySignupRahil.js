@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Container, TextField, Button } from "@material-ui/core";
-import * as api from "../../api/index";
 import { useDispatch } from "react-redux";
-import { Universitysignup } from "../../actions/auth";
+import { UniversitySignUp } from "../../actions/auth";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-// import bgvideo from "../../images/AjarJaggedClumber.mp4";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +47,7 @@ const UniversitySignupRahil = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formData);
-    dispatch(Universitysignup(formData, navigate));
+    dispatch(UniversitySignUp(formData, navigate));
   };
 
   const classes = useStyles();
