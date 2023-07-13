@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import UniversityPortalRahil from './UniversityPortalRahil';
 import UniversityAuth from './UniversityAuth';
 import UniversityWait from './UniversityWait';
-import Trial from './Trial';
+import Trial from './Trial/Trial';
 
 const useStyles = makeStyles((theme) => ({
   container: {

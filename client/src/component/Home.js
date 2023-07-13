@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import {Tilt} from "react-tilt";
 import img from "../images/rm373batch2-04.jpg";
 import {
   Box,
@@ -109,40 +110,48 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
     position: "absolute",
     fontFamily: "Roboto",
-    
+
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
   },
   card: {
     display: "flex",
-    width: "200px",
-    height: "300px",
+    width: "100%",
+    height: "100%",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
-    padding: theme.spacing(2),
     backgroundColor: "#1E1E1E", // Set a dark background color
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
     cursor: "pointer",
-    margin: theme.spacing(2),
     color: theme.palette.common.white,
     transition: "background 0.3s ease-in-out",
     "&:hover": {
       background: "#4A47A3", // Set a highlight color on hover
     },
-    
+
     flex: 1,
     minWidth: 0,
-    width: "calc(100% / 3)",
-    height: "300px",
     borderRadius: theme.spacing(2), // Add some border radius
   },
 
   image: {
     width: "80px",
     height: "80px",
+  },
+  tiltCard: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    backgroundColor: "#1E1E1E",
+    height: "300px",
+    width: "200px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
+    cursor: "pointer",
+    margin: theme.spacing(2),
+    color: theme.palette.common.white,
+    borderRadius: theme.spacing(2),
   },
 }));
 
@@ -170,6 +179,18 @@ export default function Home() {
   const handleCloseModal = () => {
     setOpen(false);
   };
+
+  const defaultOptions = {
+    reverse:        true,  // reverse the tilt direction
+    max:            35,     // max tilt rotation (degrees)
+    perspective:    1000,   // Transform perspective, the lower the more extreme the tilt gets.
+    scale:          1.1,    // 2 = 200%, 1.5 = 150%, etc..
+    speed:          1000,   // Speed of the enter/exit transition
+    transition:     true,   // Set a transition on enter/exit.
+    axis:           null,   // What axis should be disabled. Can be X or Y.
+    reset:          true,    // If the tilt effect has to be reset on exit.
+    easing:         "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
+  }
 
   return (
     <Box className={classes.homeBody}>
@@ -217,27 +238,36 @@ export default function Home() {
         <Fade in={open}>
           <Box className={classes.modalContent}>
             <div className={classes.cardContainer}>
-              <Card className={classes.card} onClick={handleOwnerClick}>
-                <IconButton aria-label="Owner Login">
-                <img
-                src={ownerImage}
-                alt="Owner"
-                className={classes.image}
-              />
-                </IconButton>
-                <CardContent>
-                  <Typography className={classes.buttonText}>
-                    Owner Login
-                  </Typography>
-                </CardContent>
-              </Card>
+              <Tilt
+                className={classes.tiltCard}
+                options={defaultOptions}
+              >
+                <Card className={classes.card} onClick={handleOwnerClick}>
+                  <IconButton aria-label="Owner Login">
+                    <img
+                      src={ownerImage}
+                      alt="Owner"
+                      className={classes.image}
+                    />
+                  </IconButton>
+                  <CardContent>
+                    <Typography className={classes.buttonText}>
+                      Owner Login
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Tilt>
+              <Tilt
+                className={classes.tiltCard}
+                options={defaultOptions}
+              >
               <Card className={classes.card} onClick={handleUniversityClick}>
                 <IconButton aria-label="University Login">
-                <img
-                src={universityImage}
-                alt="University"
-                className={classes.image}
-              />
+                  <img
+                    src={universityImage}
+                    alt="University"
+                    className={classes.image}
+                  />
                 </IconButton>
                 <CardContent>
                   <Typography className={classes.buttonText}>
@@ -245,13 +275,18 @@ export default function Home() {
                   </Typography>
                 </CardContent>
               </Card>
+              </Tilt>
+              <Tilt
+                className={classes.tiltCard}
+                options={defaultOptions}
+              >
               <Card className={classes.card} onClick={handleGranteeClick}>
                 <IconButton aria-label="Certificate Holder Login">
-                <img
-                src={granteeImage}
-                alt="Grantee"
-                className={classes.image}
-              />
+                  <img
+                    src={granteeImage}
+                    alt="Grantee"
+                    className={classes.image}
+                  />
                 </IconButton>
                 <CardContent>
                   <Typography className={classes.buttonText}>
@@ -259,6 +294,7 @@ export default function Home() {
                   </Typography>
                 </CardContent>
               </Card>
+              </Tilt>
             </div>
           </Box>
         </Fade>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { connect } from "./../../functions";
+import { connect } from "../../../functions";
 import { useDispatch } from "react-redux";
-import { UniversitySignIn, UniversitySignUp } from "../../actions/auth";
+import { Container, TextField, Button } from "@material-ui/core";
+import { UniversitySignIn, UniversitySignUp } from "../../../actions/auth";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
