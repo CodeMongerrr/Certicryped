@@ -81,7 +81,7 @@ function App() {
           <CertificateGenerator />
         </div> */}
         <div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Router>
     </div>
