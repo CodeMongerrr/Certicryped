@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container, TextField, Button, Typography } from "@material-ui/core";
 import img from "../../images/4127298.jpg";
-
+import { getTokenId } from "../../functions";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100vw",
@@ -88,6 +88,8 @@ const UniversityPortalRahil = ({ mintCertificate, uploadFile, getIdsOfOwner }) =
   const handleSubmit = (e) => {
     e.preventDefault();
     uploadFile(formData);
+    console.log("Mein iss data ki baat kar raha hoon yrr" + getTokenId());
+
     mintCertificate(publicKey, formData);
     console.log(formData)
   };
