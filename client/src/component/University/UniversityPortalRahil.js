@@ -58,23 +58,38 @@ const useStyles = makeStyles((theme) => ({
 
 const UniversityPortalRahil = ({ mintCertificate, uploadFile, getIdsOfOwner }) => {
   const classes = useStyles();
+  const date = () => {
+    const result = new Date().toLocaleDateString('en-GB')
+    return result;
+  }
   const [publicKey, setPublicKey] = useState("");
   const [formData, setFormData] = useState({
     name: "Aditya Roshan Joshi",
     description: "Blockchain Developer",
     image: "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+    Certificate_Issuer: "0x",
+    Date: "",
     attributes: [
       {
         trait_type: "Program",
         value: "Blockchain",
       },
+      {
+        trait_type: "Certificate Issuer",
+        value: ""
+      },
+      {
+        trait_type: "Date",
+        value: date()
+      }
     ],
   });
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     uploadFile(formData);
     mintCertificate(publicKey, formData);
+    console.log(formData)
   };
 
   const handleInputChange = (e, property) => {
@@ -82,6 +97,7 @@ const UniversityPortalRahil = ({ mintCertificate, uploadFile, getIdsOfOwner }) =
       ...prevState,
       [property]: e.target.value,
     }));
+    
   };
 
   return (
