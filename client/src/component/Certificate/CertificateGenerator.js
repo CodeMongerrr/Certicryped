@@ -55,7 +55,7 @@ const CertificateGenerator = () => {
         Certificate Generator
       </Typography>
       <div className={classes.certificateContainer} ref={certificateRef}>
-        <CertificateTemplate name={name}/>
+        <CertificateTemplate name={name} />
       </div>
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
