@@ -827,15 +827,13 @@ export const connect = async (event) => {
     return false;
   }
 };
-
-export const getTokenId = async () => {
+export const getTokenId = async() => {
   // Call the appropriate function in your contract to get the Token ID
   const tokenId = await certificate.methods.tokenId;
   console.log(tokenId)
   // 'tokenId' now contains the Token ID of the last minted certificate
   return tokenId;
 }
-
 export const get_ids_of_owner = async (grantee) => {
   console.log("Entered");
   const result = await certificate.methods
