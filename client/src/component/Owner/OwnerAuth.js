@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import OwnerSignIn from './OwnerSignIn';
 import OwnerSignUp from './OwnerSignUp';
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${img})`, // Update the background image with linear gradient overlay
+    backgroundColor: "black",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -28,7 +29,7 @@ const OwnerAuth = () => {
   const toggleSignUp = () => {
     isSignUp = connect()
   };
-//   console.log(isSignUp);
+  //   console.log(isSignUp);
 
   return (
     <div className={classes.root}>;

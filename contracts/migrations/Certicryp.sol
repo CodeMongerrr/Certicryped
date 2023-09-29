@@ -65,7 +65,7 @@ contract Certicryp is ERC721, ERC721URIStorage, Ownable {
         );
         _burn(tokenId);
     }
- 
+
     function revoke(uint256 tokenId) external onlyOwner {
         _burn(tokenId);
     }

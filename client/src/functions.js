@@ -3,6 +3,7 @@ import Web3 from "web3";
 import lighthouse from "@lighthouse-web3/sdk";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import CryptoJS from "crypto-js";
 
 let account = [];
 let certificate = null;
@@ -827,6 +828,14 @@ export const connect = async (event) => {
   }
 };
 
+export const getTokenId = async () => {
+  // Call the appropriate function in your contract to get the Token ID
+  const tokenId = await certificate.methods.tokenId;
+  console.log(tokenId)
+  // 'tokenId' now contains the Token ID of the last minted certificate
+  return tokenId;
+}
+
 export const get_ids_of_owner = async (grantee) => {
   console.log("Entered");
   const result = await certificate.methods
@@ -834,6 +843,33 @@ export const get_ids_of_owner = async (grantee) => {
     .call({ from: account });
   return result;
 };
+
+function generateKey(tokenID) {
+  const hashedTokenID = CryptoJS.SHA256(tokenID.toString()).toString();
+  return hashedTokenID;
+}
+
+export const decryptData = async(tokenID, encryptedData) => {
+  const key = generateKey(tokenID);
+
+  // Extract IV from the encrypted data
+  const iv = CryptoJS.enc.Hex.parse(encryptedData.slice(0, 32)); // IV is 16 bytes (32 hex characters)
+
+  // Extract ciphertext from the encrypted data
+  const ciphertext = encryptedData.slice(32);
+
+  // Decrypt the data using AES decryption
+  const decrypted = CryptoJS.AES.decrypt(ciphertext, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+
+  // Convert the decrypted data to a string
+  const decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
+
+  return decryptedData;
+}
 export const getNFTs = async (grantee) => {
   const tokens = await get_ids_of_owner(grantee);
   console.log(tokens);
@@ -843,11 +879,25 @@ export const getNFTs = async (grantee) => {
   if (tokens !== null) {
     // Add a null check here
     const len = tokens.length;
+    console.log("Total number of tokens for this Public Key is " + len)
     for (let i = 0; i < len; i++) {
-      // Change <= to <
       let data = await retrieve(tokens[i]);
       console.log(data);
-      Metadatas.push(data);
+      if(data.name != null){
+        Metadatas.push(data);
+        continue;
+      }
+      else{
+        let account = await loadAccount();
+        console.log("This is the current account" + account);
+        let decryptedData = await decryptData(account, data);
+        console.log("Yes 1" +data);
+        console.log("Yes 2" +decryptedData)
+        decryptedData = JSON.parse(decryptedData);
+        Metadatas.push(decryptedData);
+      }
+      
+      
     }
   } else {
     console.log("displaying tokens");

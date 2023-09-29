@@ -26,9 +26,9 @@ app.use(cors());
 
 app.use('/user', userRoutes);
 app.use('/OwnerUser', OwnerUserRoutes);
-app.use('/universites',universityRoutes);
+app.use('/universites', universityRoutes);
 // app.use('/Grantee', GranteeRoutes)
 app.listen(PORT, (err) => {
-    if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", PORT);
+  if (err) console.log("Error in server setup")
+  console.log("Server listening on Port", PORT);
 })

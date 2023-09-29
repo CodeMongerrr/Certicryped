@@ -7,10 +7,10 @@ export const signin = async (req, res) => {
     const existingGrantee = await Grantee.findOne({ GranteeEmail });
     if (!existingGrantee)
       return res.status(201).json({ message: "Grantee Doesn't exists" });
-      console.log("check");
-      // console.log(existingGrantee);
-    
-      const isPasswordCorrect = await bcrypt.compare(GranteePassword, existingGrantee.GranteePassword);
+    console.log("check");
+    // console.log(existingGrantee);
+
+    const isPasswordCorrect = await bcrypt.compare(GranteePassword, existingGrantee.GranteePassword);
 
     console.log("after check")
     if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid Credentials' });

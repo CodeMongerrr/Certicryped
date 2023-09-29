@@ -13,10 +13,12 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    fontFamily: "Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji",
+    marginTop: "5rem",
+    display: "block",
     alignItems: "center",
     justifyContent: "center",
-    backgroundImage: `url(${img})`,
+    // backgroundImage: `url(${img})`,
     backgroundColor: "black",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -28,15 +30,15 @@ const useStyles = makeStyles((theme) => ({
   },
   contentContainer: {
     position: "relative",
-    textAlign: "center",
+    textAlign: "left",
   },
   heading: {
     marginBottom: theme.spacing(3),
     color: "rgba(256, 256, 256, 0.9)",
     fontFamily: "Arial",
-    fontSize: "28px",
+    fontSize: "42px",
     fontWeight: "bold",
-    textTransform: "uppercase",
+    // textTransform: "uppercase",
   },
   cardContainer: {
     display: "grid",
@@ -122,7 +124,7 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
         <Container maxWidth="md">
           <Box className={classes.contentContainer}>
             <Typography variant="h4" className={classes.heading}>
-              NFT Data
+              Your Certificates
             </Typography>
           </Box>
           {loading ? (
@@ -131,9 +133,8 @@ const GranteePortal = ({ getNFTs, get_ids_of_owner }) => {
             </Typography>
           ) : (
             <Box
-              className={`${classes.cardContainer} ${
-                isCardClicked ? classes.blurred : ""
-              }`}
+              className={`${classes.cardContainer} ${isCardClicked ? classes.blurred : ""
+                }`}
             >
               {nftData.map((nft, index) => (
                 <Card

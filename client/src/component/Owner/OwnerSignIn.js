@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     padding: theme.spacing(4),
-    borderRadius: theme.spacing(2),
+    // borderRadius: theme.spacing(2),
   },
 }));
 

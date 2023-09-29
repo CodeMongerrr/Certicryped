@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {Tilt} from "react-tilt";
-import img from "../images/rm373batch2-04.jpg";
+import { Tilt } from "react-tilt";
+// import img from "../images/rm373batch2-04.jpg";
 import {
   Box,
   Typography,
@@ -22,7 +22,8 @@ import ownerImage from "./../images/owner.png";
 const useStyles = makeStyles((theme) => ({
   homeBody: {
     position: "relative",
-    backgroundImage: `url(${img})`,
+    // backgroundImage: `url(${img})`,
+    backgroundColor: "black",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -56,17 +57,17 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   homeText: {
-    color: "#FFFFFF",
+    color: "#adff2f",
     // fontSize: "5rem",
-    fontWeight: 900,
+    fontWeight: 700,
     margin: theme.spacing(2),
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-    fontFamily: "Roboto",
-    fontSize: "4rem", // Adjust the font size
+    fontFamily: "Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji",
+    fontSize: "6rem", // Adjust the font size
     lineHeight: 1.2, // Add line-height for better readability
     textAlign: "center", // Center align the text
     "@media (min-width: 600px)": {
-      fontSize: "5rem", // Increase the font size for larger screens
+      fontSize: "7rem", // Increase the font size for larger screens
     },
   },
   buttonText: {
@@ -80,12 +81,16 @@ const useStyles = makeStyles((theme) => ({
   loginButton: {
     marginTop: theme.spacing(17.5),
     width: "120px",
-    borderRadius: theme.spacing(100),
-    backgroundImage: "linear-gradient(to right, #4a47a3, #2c3e50)",
-    color: "#FFFFFF",
+
+    // backgroundImage: "linear-gradient(to right, #4a47a3, #2c3e50)",
+    backgroundColor: "#111",
+    color: "white",
     transition: "background-color 0.3s ease-in-out",
     "&:hover": {
-      backgroundImage: "linear-gradient(to right, #2c3e50, #4a47a3)", // Adjust the gradient colors
+      // backgroundImage: "linear-gradient(to right, #2c3e50, #4a47a3)", // Adjust the gradient colors
+      backgroundColor: "#333",
+      // borderRadius: theme.spacing(100)
+      // marginTop: theme.spacing(15.5)
     },
   },
   modal: {
@@ -128,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
     transition: "background 0.3s ease-in-out",
     "&:hover": {
-      background: "#4A47A3", // Set a highlight color on hover
+      background: "#555", // Set a highlight color on hover
     },
 
     flex: 1,
@@ -181,15 +186,15 @@ export default function Home() {
   };
 
   const defaultOptions = {
-    reverse:        true,  // reverse the tilt direction
-    max:            35,     // max tilt rotation (degrees)
-    perspective:    1000,   // Transform perspective, the lower the more extreme the tilt gets.
-    scale:          1.1,    // 2 = 200%, 1.5 = 150%, etc..
-    speed:          1000,   // Speed of the enter/exit transition
-    transition:     true,   // Set a transition on enter/exit.
-    axis:           null,   // What axis should be disabled. Can be X or Y.
-    reset:          true,    // If the tilt effect has to be reset on exit.
-    easing:         "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
+    reverse: true,  // reverse the tilt direction
+    max: 35,     // max tilt rotation (degrees)
+    perspective: 1000,   // Transform perspective, the lower the more extreme the tilt gets.
+    scale: 1.1,    // 2 = 200%, 1.5 = 150%, etc..
+    speed: 1000,   // Speed of the enter/exit transition
+    transition: true,   // Set a transition on enter/exit.
+    axis: null,   // What axis should be disabled. Can be X or Y.
+    reset: true,    // If the tilt effect has to be reset on exit.
+    easing: "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
   }
 
   return (
@@ -261,39 +266,39 @@ export default function Home() {
                 className={classes.tiltCard}
                 options={defaultOptions}
               >
-              <Card className={classes.card} onClick={handleUniversityClick}>
-                <IconButton aria-label="University Login">
-                  <img
-                    src={universityImage}
-                    alt="University"
-                    className={classes.image}
-                  />
-                </IconButton>
-                <CardContent>
-                  <Typography className={classes.buttonText}>
-                    Institution Login
-                  </Typography>
-                </CardContent>
-              </Card>
+                <Card className={classes.card} onClick={handleUniversityClick}>
+                  <IconButton aria-label="University Login">
+                    <img
+                      src={universityImage}
+                      alt="University"
+                      className={classes.image}
+                    />
+                  </IconButton>
+                  <CardContent>
+                    <Typography className={classes.buttonText}>
+                      Institution Login
+                    </Typography>
+                  </CardContent>
+                </Card>
               </Tilt>
               <Tilt
                 className={classes.tiltCard}
                 options={defaultOptions}
               >
-              <Card className={classes.card} onClick={handleGranteeClick}>
-                <IconButton aria-label="Certificate Holder Login">
-                  <img
-                    src={granteeImage}
-                    alt="Grantee"
-                    className={classes.image}
-                  />
-                </IconButton>
-                <CardContent>
-                  <Typography className={classes.buttonText}>
-                    Grantee Login
-                  </Typography>
-                </CardContent>
-              </Card>
+                <Card className={classes.card} onClick={handleGranteeClick}>
+                  <IconButton aria-label="Certificate Holder Login">
+                    <img
+                      src={granteeImage}
+                      alt="Grantee"
+                      className={classes.image}
+                    />
+                  </IconButton>
+                  <CardContent>
+                    <Typography className={classes.buttonText}>
+                      Grantee Login
+                    </Typography>
+                  </CardContent>
+                </Card>
               </Tilt>
             </div>
           </Box>

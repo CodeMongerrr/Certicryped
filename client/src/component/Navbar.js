@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bolder",
     fontFamily: "Arial, sans-serif",
     "&:hover": {
-      color: "#ff9800",
+      color: "#adff2f",
     },
   },
   toolbar: {
@@ -47,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     textDecoration: "none",
-    color: "#fff",
+    color: "#999",
     fontSize: "2rem",
     fontWeight: "bolder",
     fontFamily: "Arial, sans-serif",
     "&:hover": {
-      color: "#ff9800",
+      color: "#fff",
     },
   },
   rightSection: {
@@ -63,13 +63,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
   logoutButton: {
-    color: "#fff",
+    color: "#999",
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "bold",
     fontFamily: "Arial, sans-serif",
     "&:hover": {
-      color: "#ff9800",
+      color: "#fff",
     },
   },
 }));
