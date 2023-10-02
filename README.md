@@ -15,7 +15,6 @@ Certicryp is a decentralized application (DApp) built on the Ethereum blockchain
 - Secure transfer of certificates between individuals
 - Robust security measures to ensure trustworthiness and reliability
 - Tamper-proof and decentralized solution for verification and authentication
-- Metadata encryption using symmetric key encryption with SHA256 hashed public keys, ensuring security and privacy.
 
 ## How It Works
 
@@ -23,10 +22,6 @@ Certicryp is a decentralized application (DApp) built on the Ethereum blockchain
 2. The Certicryp DApp transforms these certificates into unique NFTs, providing verifiable proof of authenticity and ownership.
 3. Individuals can seamlessly transfer their certificates to showcase their academic accomplishments or for ownership transfer purposes.
 4. The blockchain-based nature of Certicryp ensures tamper-proof security and immutability of certificates, maintaining their integrity and credibility.
-
-## Data Encryption and Decryption
-- Metadata of certificates is encrypted using symmetric key encryption, with the SHA256 hashed public key serving as the common key for encryption and decryption.
-- Decryption of certificates only occurs within the Grantee Portal, ensuring the highest level of security and privacy for certificate data.
 
 ## Get Started
 
